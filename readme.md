@@ -10,6 +10,7 @@
 -  postgreSQL DB 연결
 -  securityConfig 설정
 -  jpa entity 생성
+
 2.  기능 작업&순서
 - 관리자 로그인
 - 전체 글 조회
