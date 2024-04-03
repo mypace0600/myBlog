@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1e99b557a8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/common.css">
+
+    <title>blog</title>
+</head>
+<body>
+<header>  <p>my   -   Blog. </p> </header>
+<nav>
+  <button class="index"onclick="location.href='index'"><span>Home</span></button>
+  <button class="lop" onclick="location.href='lop'"><span>Post</span></button>
+             <button class="ops" onclick="location.href='#'"><span>Portfolio</span></button>
+            <!--<button class="kit" onclick="location.href='#'"><span>DevKit</span></button>-->
+             <!-- <button class="lab" onclick="location.href='#.html'"><span>#</span></button> -->
+             <!-- <button class="#" onclick="location.href='#.html'">#</button> -->
+             <!-- <button class="#" onclick="location.href='#.html'">#</button> -->
+             <button class="boo" onclick="location.href='#'"><span class="material-symbols-outlined">bookmark</span></button>
+</nav>    
+
+      
+          <!-- //임시 -->
+          <div class="rows">
+            <p> 1<br>2 <br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+              <br>11<br>12<br>13<br>14<br>15<br>16<br><br>17<br><br>18<br>19<br>20
+              <br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30 </p>
+              <div class="line_container" id="line_container"></div>
+          </div> 
+          <!-- //임시 -->
+            
+            
+
+<main>
+ 
+      <div class="stat">
+        <div class="box1"><input type="text" value=" 4 "><span> 총 방문자</span></div>
+        <div class="box2"><input type="text" value=" 2 "><span> 총 포스팅</span></div>
+        <div class="box3"><input type="text" value=" 0 "><span> 오늘 방문자</span></div>
+        <div class="box4"><input type="text" value=" 2 "><span> 블로 운영</span></div>
+      </div>
+      <div class="welcome">
+        <p>WELCOME</p>
+      </div>
+     
+
+      <div class="slide">
+        <h1>my folow list</h1>
+        <p>its a slide zone for show 'folow list'</p>
+      </div>
+
+
+      <div class="post">
+        <h1>lately post</h1>
+        <p>Lorem ipsum dolor sit voluptate consequatur repudiandae accusamus, cupiditate eaque adipisci nulla alias ad voluptate consequatur repudiandae cum!tate consequatur repudiandae cum!Lorem ipsum dolor sit voluptate consequatur repudiandae accusamus, cupiditate eaque adipisci nulla alias ad voluptate consequatur repudiandae cum!tate consequatur repudiandae cum!Lorem ipsum dolor sit voluptate consequatur repudiandae accusamus, cupiditate eaque adipisci nulla alias ad voluptate consequatur repudiandae cum!tate consequatur repudiandae cum!Lorem ipsum dolor sit voluptate consequatur repudiandae accusamus, cupiditate eaque adipisci nulla alias ad voluptate consequatur repudiandae cum!tate consequatur repudiandae cum!</p>
+      </div>
+      
+    
+
+</main>
+
+<div class="zoom">
+    <span>tag</span>
+    <span>tag</span>
+    <span>tag</span>
+    <span>tag</span>
+
+                    <!-- <h1>내용 미리보기</h1>
+
+                    <h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1> -->
+  </div>
+<div class="foot"><div class="footer">user flow / session history</div></div>
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   <script>
+        const container = document.getElementById('line_container');
+        const Lines = 9;
+        var l= 10;
+        var n= 2;
+          
+
+        for (let i = 1; i < Lines; i++) {
+            const line = document.createElement('div');
+            line.style.height = `calc(86vh - ${i*10}vh`; // height 
+            line.style.marginTop = `calc(10px + ${4.9*10*i}px)`; // margin-top
+            line.style.marginLeft = `calc(0px + ${1}vw)`; // fallfrom left
+            line.style.width = '1px';
+            container.appendChild(line);
+        }
+        </script>
+
+</body>
+</html>

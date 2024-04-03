@@ -1,0 +1,153 @@
+
+.index {
+  margin-top: 10px;
+    color: var(--font1)!important;
+    border-radius: 2px;
+    margin-top: 15px;
+    background:var(--background2);
+
+}
+.index span {
+  border-bottom: solid var(--font1) 0.1em!important;  
+  
+}
+
+
+/* 메인 */
+main{
+  background-color: var(--background2);
+  padding-top: 150px;
+  /* border: thick double var(--line) ; */
+  grid-column: 3/4;
+  grid-row: 3/4;
+  color: var(--font1);   
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 50% 49.3%;
+  grid-template-rows: 20% 50% 50% 50% 50% 50%;
+}
+
+.stat{
+  margin:0 auto;
+  grid-column: 0/2;
+  grid-row: 2/3;
+  width: 50%;
+  display: grid; 
+
+}
+
+.box1{
+  display: grid;
+  grid-column:1/2;
+  grid-row: 1/2;
+}
+.box2{
+  display: grid;
+  grid-column:2/3;
+  grid-row: 1/2;
+}
+.box3{
+  display: grid;
+  grid-column:1/2;
+  grid-row: 2/3;
+}
+.box4{
+  display: grid;
+  grid-column:2/3;
+  grid-row: 2/3;
+}
+.box1 input{
+  color: var(--font2);
+  text-align: center;
+  margin:0 auto;
+  width: 30%;
+  background-color:var(--background2);
+  border:none;
+}
+.box2 input{
+  color: var(--font2);
+  text-align: center;
+  margin:0 auto;
+  width: 30%;
+  background-color:var(--background2);
+  border:none;
+}
+.box3 input{
+  color: var(--font2);
+  text-align: center;
+  margin:0 auto;
+  width: 30%;
+  background-color:var(--background2);
+  border:none;
+}
+.box4 input{
+  color: var(--font2);
+  text-align: center;
+  margin:0 auto;
+  width: 30%;
+  background-color:var(--background2);
+  border:none;
+}
+
+
+
+/* 최근 게시물 */
+.welcome{
+  margin-top:10%;
+  align-items: center;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+.welcome p{
+  font-size: 5em;
+
+}
+
+/* 슬라이드 이미지 */
+.slide{
+  grid-column:  1/3;
+  grid-row: 4/5;
+
+}
+.slide h1{
+  font-size: 3em;
+}
+.slide p{
+  height: 82%;
+  font-size: 1em; 
+  color:  var(--font2);
+}
+
+
+
+
+
+/* post */
+.post{
+  grid-column: 1/3;
+  grid-row: 6/7;
+  margin-top:100px ;
+
+}
+
+
+
+
+
+/* 챗 */
+/* .chat{
+  margin-top:100px ;
+  grid-column: 1/2;
+  grid-row: 5/6;
+  display: grid;
+  color: #646363;
+  justify-content: center;
+}
+.chat textarea{
+   background-color: var(--background2);
+    color: var(--font1);
+    text-decoration: none;
+} */
