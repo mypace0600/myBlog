@@ -6,7 +6,7 @@
 
 ## 작업 계획
 1. 사전 작업
-- application)yml 파일 생성
+- application.yml 파일 생성
 -  postgreSQL DB 연결
 -  securityConfig 설정
 -  jpa entity 생성
@@ -32,3 +32,13 @@
 - 기본 프레임 작업 및 jquery, bootstrap 라이브러리 추가
 - 전체 화면 생성 및 관리자 분기처리
 - 예외 화면 생성
+
+
+## 설정
+application.yml
+datasource:
+driver-class-name: org.postgresql.Driver
+url: jdbc:postgresql://localhost:5432/blog(blog 라는 이름의 database 생성)
+(sql 명령어 : create database blog;)
+username: 아이디입력
+password: 비밀번호입력
