@@ -6,7 +6,7 @@
 
 ## 작업 계획
 1. 사전 작업
-- application)yml 파일 생성
+- application.yml 파일 생성
 -  postgreSQL DB 연결
 -  securityConfig 설정
 -  jpa entity 생성
