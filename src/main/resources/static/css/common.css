@@ -1,0 +1,260 @@
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+:root{
+    --background1: #181818; /*어두움*/
+    --background2:#252525; /*밝음*/
+    --line:#524f4fa8;
+    --font1:#808080;
+    --font2:#c7ac54;    
+    --font3:#cac3c3;
+    --shadow:rgba(0.6, 0.6, 0.6, 0.6); /* 그림자 */
+}
+/* 데스크톱 스타일 */
+
+
+  
+*,
+*::after,
+*::before{
+    font-size: 12px;
+    letter-spacing: 1.1px;
+    font-family: "Varela Round", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    background-repeat: no-repeat;
+    letter-spacing: 1px;
+    grid-gap:0;
+}
+a:link {
+    color : #a1a1a1;
+    text-decoration: none;
+}
+a:visited {
+    color : #a1a1a1;
+    text-decoration: none;
+}
+button{
+    border: 0;
+    background: none;
+    color : #a1a1a1;
+    text-decoration: none;
+    font-weight:bolder;
+    cursor:pointer;
+}
+body {
+    overflow: hidden;
+    background: var(--background1);
+    max-height: 100vh;
+    min-height: 100vh;
+    width: 100vw;    
+    text-align: center;
+    display: grid;
+    grid-template-columns: 5vw 5vw 80vw 10vw;
+    grid-template-rows:2vh 7vh 87vh 4vh;
+    grid-template-areas:  "header header header header"
+                "nav nav nav nav"
+                "rownum rownum main zoom"
+                "footer footer footer footer "
+
+}
+header{ grid-area: header;
+    grid-column: 3/4;
+    border-bottom: #181818 1px solid;
+    color: var(--font1);
+    user-select: none;
+
+
+}
+nav{
+    grid-column: 3/4;
+    grid-row: 2/3; 
+    color: var(--font1);
+    max-height: 10vh; 
+    max-width: 100%; 
+    min-width: 100%; 
+}
+.develop div{
+display: none;
+}
+main{
+    background-color: var(--background2);
+    padding-top: 150px;
+    grid-column: 3/4;
+    grid-row: 3/4;
+    color: var(--font1);   
+    overflow: auto;
+
+}
+
+.foot{
+    grid-column: 3/4;
+    color: var(--font1);
+    height: 150px;
+    
+}
+.footer{
+    background: var(--background1);
+    user-select: none;
+}
+.zoom{
+    grid-row: 3/4;
+    grid-column: 4/5;
+    margin-bottom: 30vh;
+    background-color: var(--background2);
+    color: white;
+    opacity: 50%;    
+}
+
+
+.lenze{
+    background-color: var(--background2);
+    height: 30px;
+    color: white;
+
+}
+.zoom span{
+    background-color: var(--background1);
+    
+    border: 1px solid white;
+}
+
+
+
+/* header p{
+    /* transform:translateY(50%); */
+
+/* }  미디어로 설정하자. */
+nav button{
+    color: var(--font1);
+    transition: all 0.3s;
+    height: 100%;
+    width: 10vw;
+    text-align: center;
+}
+
+
+nav button:not(:last-child){
+    float: left;
+}
+nav button span {
+display: inline;
+font-size: larger;
+
+}
+nav button:hover {
+    margin-top: 15px;
+    border-radius: 2px;
+    background:var(--background2);
+    animation: line 0.3s;
+}
+
+
+
+/* 로우 넘버  */
+.rows {
+    grid-area: rownum;
+    background: var(--background1);
+    display:flex;
+    color: var(--font1);
+    font-size: 11px;
+    line-height: 220%;
+}
+
+/* 로우 작대기*/
+
+.line_container{
+    display: flex;
+}
+
+.line_container div {
+    background-color: var(--line);
+}
+
+
+/* 모바일 css */
+@media (max-width: 768px) {
+body{
+            background: var(--background1);
+            max-height: 100vh;
+            min-height: 100vh;
+            width: 100vw;    
+            display: grid;
+            grid-template-rows:10vh 80vh 4vh;
+            grid-template-areas:  "header"
+                        "main"
+                        "footer"
+}
+header{ display: none;
+}
+nav{
+        display: flex;
+        grid-column:1/5 ;
+        grid-row: 1/2; 
+        color: var(--font1);
+        /* max-width: 100%; 
+        min-width: 100%;  */
+}
+    
+        /* 모바일 메뉴 스타일 */
+nav button{
+            color: var(--font1);
+            transition: all 0.3s;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+}
+        
+      
+nav button span {
+font-size: larger;
+        
+}
+nav button:hover {
+            margin-top: 15px;
+            border-radius: 12px;
+            background:var(--background2);
+            animation: line 0.3s;
+}
+.devlop div{
+        display: none;
+    }
+main{  
+            padding-top:1px;
+            grid-column:1/5 ;
+            grid-row: 2/5;
+            color: var(--font1);   
+    }
+.foot{
+        display: none;
+        bottom: 0;
+        grid-area: footer;
+        color: var(--font1);
+        
+    }
+.footer{
+        background: var(--background1);
+        user-select: none;
+    } 
+.zoom{
+        display: none;
+    }
+    }
+    
+    
+    
+    
+      @media (max-width: 768px) {
+        
+        .rows{
+            display: none;
+        }
+      }
+    
+      @media (max-width: 768px) {
+     
+      }
+      
+  
