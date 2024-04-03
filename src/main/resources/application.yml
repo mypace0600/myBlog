@@ -19,7 +19,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/blog
     username: postgres
-    password: postgres
+    password: sa
 
   jpa:
     show-sql: true
@@ -27,7 +27,7 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   servlet:
