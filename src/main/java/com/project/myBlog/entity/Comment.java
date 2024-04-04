@@ -12,12 +12,13 @@ import java.util.List;
 @Data
 @Table(name = "tb_comment")
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id",nullable = false)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 

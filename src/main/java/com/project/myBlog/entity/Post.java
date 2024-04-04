@@ -24,14 +24,14 @@ public class Post {
     @Column(name = "content",columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "status", nullable = false)
     private boolean status;
 
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<String> tags;
 
     @CreatedDate
