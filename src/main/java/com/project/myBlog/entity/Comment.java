@@ -3,18 +3,25 @@ package com.project.myBlog.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
-@Table(name = "comments")
-public class Comments {
+@Table(name = "tb_comment")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id",nullable = false)
     private Integer id;
-    @Column(name = "postid",nullable = false)
-    private Integer postId;
-    @Column(name = "userid",nullable = false)
-    private Integer userId;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(name = "content",nullable = false)
     private Integer content;
 

@@ -8,23 +8,37 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "posts")
-public class Posts {
+@Table(name = "tb_post")
+public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Integer id;
+
     @Column(name = "title", nullable = false)
     private String title;
+
     @Column(name = "content",columnDefinition = "TEXT", nullable = false)
     private String content;
-    @Column(name = "userId", nullable = false)
-    private Integer userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column(name = "status", nullable = false)
     private boolean status;
+
     @ElementCollection()
     private List<String> tags;
+
     @Column(name = "createdAt", nullable = false)
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "post")
+    private List<Image> imageList;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList;
 
 }

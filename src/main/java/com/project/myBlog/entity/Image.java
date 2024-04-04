@@ -5,14 +5,17 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "images")
-public class Images {
+@Table(name = "tb_image")
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "postid", nullable = false)
-    private Integer postId;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
     @Column(name = "imgurl", nullable = false)
     private String imgUrl;
 
