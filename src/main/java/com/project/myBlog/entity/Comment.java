@@ -2,7 +2,10 @@ package com.project.myBlog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,5 +28,11 @@ public class Comment {
     @Column(name = "content",nullable = false)
     private Integer content;
 
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updateTime;
 
 }

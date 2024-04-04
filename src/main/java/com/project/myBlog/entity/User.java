@@ -1,22 +1,28 @@
 package com.project.myBlog.entity;
 
+import com.project.myBlog.dto.UserRegisterDto;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
+@Builder
 @Table(name = "tb_user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "username", nullable = false)
+    @Column(nullable = false, length = 30)
     private String username;
 
     @Column(name = "email", nullable = false)
@@ -25,16 +31,31 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
-    @Column(name = "createdAt", nullable = false)
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updateTime;
 
     @OneToMany(mappedBy = "user")
     private List<Post> postList;
 
     @OneToOne(mappedBy = "user")
     private Comment comment;
+
+    public static User createUser(UserRegisterDto userRegisterDto, PasswordEncoder passwordEncoder) {
+        return User.builder()
+                .username(userRegisterDto.getUsername())
+                .email(userRegisterDto.getEmail())
+                .password(passwordEncoder.encode(userRegisterDto.getPassword()))
+                .roleType(RoleType.ADMIN)
+                .createdAt(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
+                .build();
+    }
 }
 

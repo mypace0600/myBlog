@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/auth/**","/js/**","/css/**","/img/**","/thymeleaf/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login->login
@@ -55,9 +54,7 @@ public class SecurityConfig {
                 .logout(logout->logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                         .logoutSuccessUrl("/")
-                )
-
-        ;
+                );
 
         return http.build();
     }
