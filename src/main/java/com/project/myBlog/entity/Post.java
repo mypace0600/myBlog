@@ -1,5 +1,6 @@
 package com.project.myBlog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +19,7 @@ import java.util.List;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "title", nullable = false)
@@ -28,27 +28,34 @@ public class Post {
     @Column(name = "content",columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
     private User user;
 
     @Column(name = "status", nullable = false)
     private boolean status;
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<String> tags;
 
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updateTime;
+    private LocalDateTime updateAt;
 
-    @OneToMany(mappedBy = "post")
+
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id desc ")
     private List<Image> imageList;
 
-    @OneToMany(mappedBy = "post")
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id desc ")
     private List<Comment> commentList;
+
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id desc ")
+    private List<Tag> tagList;
 
 }

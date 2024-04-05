@@ -2,15 +2,17 @@ package com.project.myBlog.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
-@Table(name = "tb_image")
-public class Image {
+@Table(name = "tb_tag")
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +22,6 @@ public class Image {
     @JoinColumn(name = "postId")
     private Post post;
 
-    @Column(name = "imgUrl", nullable = false)
-    private String imgUrl;
-
-
+    @Column(name = "tagName")
+    private String tagName;
 }

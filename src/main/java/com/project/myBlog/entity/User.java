@@ -1,5 +1,6 @@
 package com.project.myBlog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.myBlog.dto.UserRegisterDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,8 +20,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "email", nullable = false)
@@ -37,13 +37,15 @@ public class User {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updateTime;
+    private LocalDateTime updateAt;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Post> postList;
 
-    @OneToOne(mappedBy = "user")
-    private Comment comment;
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 
     public static User createUser(UserRegisterDto userRegisterDto, PasswordEncoder passwordEncoder) {
         return User.builder()
@@ -51,7 +53,7 @@ public class User {
                 .password(passwordEncoder.encode(userRegisterDto.getPassword()))
                 .roleType(RoleType.ADMIN)
                 .createdAt(LocalDateTime.now())
-                .updateTime(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .build();
     }
 }
