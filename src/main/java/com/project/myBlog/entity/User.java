@@ -23,9 +23,6 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
-    @Column(nullable = false, length = 30)
-    private String username;
-
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -50,7 +47,6 @@ public class User {
 
     public static User createUser(UserRegisterDto userRegisterDto, PasswordEncoder passwordEncoder) {
         return User.builder()
-                .username(userRegisterDto.getUsername())
                 .email(userRegisterDto.getEmail())
                 .password(passwordEncoder.encode(userRegisterDto.getPassword()))
                 .roleType(RoleType.ADMIN)

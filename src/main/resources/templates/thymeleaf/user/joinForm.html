@@ -18,10 +18,6 @@
 <div layout:fragment="content">
     <form action="#" th:action="@{/auth/joinProc}" method="post" th:object="${userRegisterDto}">
         <div class="form-group">
-            <label th:for="username">username</label>
-            <input type="text" th:field="*{username}" class="form-control" placeholder="Enter Username"/>
-        </div>
-        <div class="form-group">
             <label th:for="password">password</label>
             <input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password"/>
         </div>

@@ -5,6 +5,7 @@ import com.project.myBlog.entity.User;
 import com.project.myBlog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +40,12 @@ public class UserController {
     }
 
     @PostMapping("/auth/joinProc")
-    public String register(@ModelAttribute("UserRegisterDto") UserRegisterDto userRegisterDto, BindingResult bindingResult, Model model){
+    public String register(@ModelAttribute("UserRegisterDto") UserRegisterDto userRegisterDto, BindingResult bindingResult, Model model) throws BadRequestException {
         if(bindingResult.hasErrors()){
             return "auth/joinForm";
         }
         try {
             User user = User.createUser(userRegisterDto, passwordEncoder);
-            log.debug("@@@@@@@@@@@@@@@ user :{}",user.toString());
             userService.register(user);
         } catch (IllegalStateException e){
             model.addAttribute("errorMessage",e.getMessage());
