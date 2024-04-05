@@ -1,9 +1,13 @@
 package com.project.myBlog.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Table(name = "tb_image")
 public class Image {

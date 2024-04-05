@@ -2,8 +2,7 @@ package com.project.myBlog.entity;
 
 import com.project.myBlog.dto.UserRegisterDto;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +13,8 @@ import java.util.List;
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_user")
 public class User {
 
