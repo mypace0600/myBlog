@@ -1,6 +1,5 @@
 package com.project.myBlog.controller;
 
-import com.project.myBlog.dto.UserRegisterDto;
 import com.project.myBlog.entity.User;
 import com.project.myBlog.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -35,18 +34,18 @@ public class UserController {
 
     @GetMapping("/auth/joinForm")
     public String joinForm(Model model) {
-        model.addAttribute("userRegisterDto",new UserRegisterDto());
+        model.addAttribute("user",new User());
         return "user/joinForm";
     }
 
     @PostMapping("/auth/joinProc")
-    public String register(@ModelAttribute("UserRegisterDto") UserRegisterDto userRegisterDto, BindingResult bindingResult, Model model) throws BadRequestException {
+    public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws BadRequestException {
         if(bindingResult.hasErrors()){
             return "auth/joinForm";
         }
         try {
-            User user = User.createUser(userRegisterDto, passwordEncoder);
-            userService.register(user);
+            User createdUser = User.createUser(user, passwordEncoder);
+            userService.register(createdUser);
         } catch (IllegalStateException e){
             model.addAttribute("errorMessage",e.getMessage());
             return "auth/joinForm";

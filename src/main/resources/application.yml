@@ -6,7 +6,7 @@ spring:
     cache: false
     check-template-location: false
     enabled: true
-    prefix: classpath:templates/
+    prefix: classpath:templates/thymeleaf/
     suffix: .html
     mode: HTML5
     encoding: UTF-8

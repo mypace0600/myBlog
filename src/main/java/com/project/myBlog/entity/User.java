@@ -1,7 +1,6 @@
 package com.project.myBlog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.project.myBlog.dto.UserRegisterDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -47,10 +46,10 @@ public class User {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
 
-    public static User createUser(UserRegisterDto userRegisterDto, PasswordEncoder passwordEncoder) {
+    public static User createUser(User user, PasswordEncoder passwordEncoder) {
         return User.builder()
-                .email(userRegisterDto.getEmail())
-                .password(passwordEncoder.encode(userRegisterDto.getPassword()))
+                .email(user.getEmail())
+                .password(passwordEncoder.encode(user.getPassword()))
                 .roleType(RoleType.ADMIN)
                 .createdAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())

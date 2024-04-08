@@ -11,6 +11,7 @@ import java.util.Collection;
 @Getter
 public class PrincipalDetail  implements UserDetails {
 
+
     private User user;
 
     public PrincipalDetail(User user) {

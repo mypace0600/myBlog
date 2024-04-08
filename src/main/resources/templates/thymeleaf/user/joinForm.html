@@ -16,7 +16,7 @@
 <th:block layout:fragment="script"></th:block>
 
 <div layout:fragment="content">
-    <form action="#" th:action="@{/auth/joinProc}" method="post" th:object="${userRegisterDto}">
+    <form action="#" th:action="@{/auth/joinProc}" method="post" th:object="${user}">
         <div class="form-group">
             <label th:for="password">password</label>
             <input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password"/>
