@@ -39,14 +39,11 @@ public class UserController {
     }
 
     @PostMapping("/auth/joinProc")
-    public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws BadRequestException {
-        if(bindingResult.hasErrors()){
-            return "auth/joinForm";
-        }
-        try {
+    public String register(@ModelAttribute("user") User user,Model model) {
+       try {
             User createdUser = User.createUser(user, passwordEncoder);
             userService.register(createdUser);
-        } catch (IllegalStateException e){
+        } catch (BadRequestException e){
             model.addAttribute("errorMessage",e.getMessage());
             return "auth/joinForm";
         }
