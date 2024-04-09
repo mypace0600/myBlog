@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/mainLayout}"
+      layout:decorate="~{/layout/default_layout}"
 >
 
 <!-- 사용자 CSS 추가-->
@@ -17,13 +17,15 @@
 
 <div layout:fragment="content">
     <form action="#" th:action="@{/auth/joinProc}" method="post" th:object="${user}">
-        <div class="form-group">
-            <label th:for="password">password</label>
-            <input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password"/>
-        </div>
+
         <div class="form-group">
             <label th:for="email">email</label>
             <input type="email" th:field="*{email}" class="form-control" placeholder="Enter Email"/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="password">password</label>
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password"/>
         </div>
 
         <div style="text-align:center">
