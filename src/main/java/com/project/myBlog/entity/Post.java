@@ -25,15 +25,17 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "content",columnDefinition = "TEXT", nullable = false)
+    @Lob
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 
-    @Column(name = "status", nullable = false)
-    private boolean status;
+    @Column(name = "hidden", nullable = false)
+    private boolean hidden;
+
+    private int count;
 
     @CreatedDate
     @Column(updatable = false)
