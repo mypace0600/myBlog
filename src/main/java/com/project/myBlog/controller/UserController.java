@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -38,11 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/auth/joinProc")
-    public String register(@RequestBody User user, Model model) {
-        if(null==user.getEmail() || null==user.getPassword()){
-            model.addAttribute("errorMessage","아이디 또는 비밀번호를 입력해주세요");
-            return "auth/joinForm";
-        }
+    public String register(@ModelAttribute User user, Model model) {
         try {
             User createdUser = User.createUser(user, passwordEncoder);
             userService.register(createdUser);
