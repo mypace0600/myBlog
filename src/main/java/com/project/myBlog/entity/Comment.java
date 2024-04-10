@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Entity
+@EnableJpaAuditing
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -29,8 +31,8 @@ public class Comment {
     @JoinColumn(name = "userId")
     private User user;
 
-    @Column(name = "content",nullable = false)
-    private Integer content;
+    @Column(nullable = false, columnDefinition="TEXT")
+    private String content;
 
     @CreatedDate
     @Column(updatable = false)

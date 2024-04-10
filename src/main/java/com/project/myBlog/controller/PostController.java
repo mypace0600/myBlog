@@ -37,7 +37,6 @@ public class PostController {
     @PostMapping("/post/write")
     @ResponseBody
     public ResponseDto<Integer> postWrite(@RequestBody Post post, @AuthenticationPrincipal PrincipalDetail principal){
-        log.debug("@@@@@@@@@@@@@@@@@@@ post : {}",post.toString());
         postService.save(post,principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
