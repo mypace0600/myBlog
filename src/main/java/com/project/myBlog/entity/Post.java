@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -25,7 +26,7 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Lob
+    @Column(nullable = false, columnDefinition="TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
