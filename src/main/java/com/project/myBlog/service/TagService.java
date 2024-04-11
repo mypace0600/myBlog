@@ -23,8 +23,6 @@ public class TagService {
     public void save(Tag tag){
         if(!checkTagNameDuplicated(tag.getTagName())){
             tagRepository.save(tag);
-        } else {
-            log.debug("@@@@@@@@@@@@@@@@@@ tag :{}",tag.getTagName());
         }
     }
 }

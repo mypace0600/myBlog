@@ -100,5 +100,5 @@ main{
   grid-column: 3 / 4;
   grid-row: 3 / 4;
   color: var(--font1);
-  overflow: auto;
+  overflow-wrap: break-word;
 }

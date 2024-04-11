@@ -2,7 +2,6 @@ package com.project.myBlog.controller;
 
 import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
-import com.project.myBlog.dto.PostWriteDto;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+
     @GetMapping("/post")
     public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
@@ -37,22 +37,16 @@ public class PostController {
 
     @PostMapping("/post/write")
     @ResponseBody
-    public ResponseDto<Integer> postWrite(@RequestBody PostWriteDto post, @AuthenticationPrincipal PrincipalDetail principal){
+    public ResponseDto<Integer> postWrite(@RequestBody Post post, @AuthenticationPrincipal PrincipalDetail principal){
         postService.save(post,principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 
     @GetMapping("/post/{id}")
     public String findById(@PathVariable int id, Model model, HttpServletRequest request, @AuthenticationPrincipal  PrincipalDetail principal){
-        Post post = null;
-        try {
-            post = postService.findByIdAndUser(id,principal.getUser());
-        } catch (Exception e) {
-            return "post/error";
-        }
+        Post post = postService.findByIdAndUser(id,principal.getUser());
         postService.updateViewCount(id);
         model.addAttribute("post",post);
-
         return "post/detail";
     }
 
