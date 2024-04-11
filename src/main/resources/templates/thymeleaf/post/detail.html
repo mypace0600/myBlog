@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/default_layout">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}"
+>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/post.js}"></script>
+    <script>
+    </script>
+</th:block>
+
+<main layout:fragment="content">
     <div class="container">
         <div>
             <h3 th:text="${post.title}"></h3>
@@ -10,16 +18,12 @@
         <div>
             <div th:utext="${post.content}" ></div>
         </div>
+        <div>
+            <div th:text="${post.tagString}"></div>
+        </div>
     </div>
-</th:block>
+</main>
 </html>
-<script type="text/javascript" th:src="@{/js/post.js}"></script>
-<th:block th:fragment="script">
-    <script>
-
-
-    </script>
-</th:block>
 
 
 

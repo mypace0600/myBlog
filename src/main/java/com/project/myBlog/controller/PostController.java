@@ -2,6 +2,7 @@ package com.project.myBlog.controller;
 
 import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
+import com.project.myBlog.dto.PostWriteDto;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public class PostController {
 
     @PostMapping("/post/write")
     @ResponseBody
-    public ResponseDto<Integer> postWrite(@RequestBody Post post, @AuthenticationPrincipal PrincipalDetail principal){
+    public ResponseDto<Integer> postWrite(@RequestBody PostWriteDto post, @AuthenticationPrincipal PrincipalDetail principal){
         postService.save(post,principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }

@@ -18,10 +18,6 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "postId")
-    private Post post;
-
     @Column(name = "tagName")
     private String tagName;
 }

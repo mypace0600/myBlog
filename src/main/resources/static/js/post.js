@@ -12,6 +12,7 @@ let index = {
         let data = {
             title: $("#title").val(),
             content: $("#content").val(),
+            tagString: $("#tagString").val(),
             hidden: isHiddenChecked
         };
         console.log("data : "+JSON.stringify(data));

@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -33,7 +32,7 @@ public class Post {
     @Column(nullable = false, columnDefinition="TEXT")
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
@@ -49,20 +48,16 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime updateAt;
 
+    private String tagString;
 
     @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @OrderBy("id desc ")
     private List<Image> imageList;
 
     @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @OrderBy("id desc ")
     private List<Comment> commentList;
-
-    @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("id desc ")
-    private List<Tag> tagList;
 
 }
