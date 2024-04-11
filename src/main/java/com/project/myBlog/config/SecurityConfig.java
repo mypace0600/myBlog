@@ -1,5 +1,6 @@
 package com.project.myBlog.config;
 
+import com.project.myBlog.entity.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,8 @@ public class SecurityConfig {
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/auth/**","/js/**","/css/**","/img/**","/thymeleaf/**").permitAll()
+                        .requestMatchers("/post/write").hasAnyRole(RoleType.ADMIN.toString())
+                        .requestMatchers("/post/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login->login

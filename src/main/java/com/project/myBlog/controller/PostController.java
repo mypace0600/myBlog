@@ -4,7 +4,6 @@ import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.service.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +14,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
 
 
 @Slf4j
@@ -27,7 +29,7 @@ public class PostController {
     @GetMapping("/post")
     public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
-        return "index";
+        return "post/post";
     }
 
     @GetMapping("/post/write")
@@ -43,8 +45,8 @@ public class PostController {
     }
 
     @GetMapping("/post/{id}")
-    public String findById(@PathVariable int id, Model model, HttpServletRequest request, @AuthenticationPrincipal  PrincipalDetail principal){
-        Post post = postService.findByIdAndUser(id,principal.getUser());
+    public String findById(@PathVariable int id, Model model, @AuthenticationPrincipal Optional<PrincipalDetail> principal){
+        Post post = postService.findByIdAndUser(id,principal);
         postService.updateViewCount(id);
         model.addAttribute("post",post);
         return "post/detail";

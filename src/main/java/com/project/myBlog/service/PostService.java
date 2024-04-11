@@ -1,5 +1,6 @@
 package com.project.myBlog.service;
 
+import com.project.myBlog.config.PrincipalDetail;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.entity.RoleType;
 import com.project.myBlog.entity.Tag;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Slf4j
@@ -48,16 +50,18 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Post findByIdAndUser(int id, User user) {
+    public Post findByIdAndUser(int id, Optional<PrincipalDetail> principal) {
         Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
         if(post.isHidden()){
-            if(post.getUser().getId().equals(user.getId()) || user.getRoleType().equals(RoleType.ADMIN)){
+            if(principal.isPresent() && (post.getUser().getId().equals(principal.get().getUser().getId()) || principal.get().getUser().getRoleType().equals(RoleType.ADMIN))){
                 return post;
             } else {
                 throw new SecurityException("비밀글 조회 권한이 없습니다.");
             }
+        } else {
+            return post;
         }
-        return post;
     }
 
     @Transactional
