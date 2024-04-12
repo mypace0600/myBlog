@@ -30,17 +30,15 @@ public class TagService {
    public void save(Post savedPost, String tagString){
        String[] tagArr = tagString.split("#");
        for(String t : tagArr){
-           Tag tempTag = new Tag();
-           String tagName = t.trim().replace(" ","_");
-           Tag savedTag = null;
-           if(!duplicatedTagNameCheck(tagName)){
-               tempTag.setTagName(tagName);
-               savedTag = tagRepository.save(tempTag);
-               PostTag tempPostTag = new PostTag();
-               tempPostTag.setPost(savedPost);
-               tempPostTag.setTag(savedTag);
-               postTagRepository.save(tempPostTag);
-           }
+           String tagName = t.trim().replaceAll(" ","_");
+           Tag tempTag = tagRepository.findByTagName(tagName).orElseGet(Tag::new);
+           tempTag.setTagName(tagName);
+           tagRepository.save(tempTag);
+
+           PostTag tempPostTag = postTagRepository.findByPostIdAndTagId(savedPost.getId(),tempTag.getId()).orElseGet(PostTag::new);
+           tempPostTag.setPost(savedPost);
+           tempPostTag.setTag(tempTag);
+           postTagRepository.save(tempPostTag);
        }
    }
 }
