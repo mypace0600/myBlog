@@ -2,8 +2,10 @@ package com.project.myBlog.controller;
 
 import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
+import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.service.PostService;
+import com.project.myBlog.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,7 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
+    private final TagService tagService;
 
     @GetMapping("/post")
     public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
@@ -39,8 +42,9 @@ public class PostController {
 
     @PostMapping("/post/write")
     @ResponseBody
-    public ResponseDto<Integer> postWrite(@RequestBody Post post, @AuthenticationPrincipal PrincipalDetail principal){
-        postService.save(post,principal.getUser());
+    public ResponseDto<Integer> postWrite(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal){
+        Post savedPost = postService.save(postDto,principal.getUser());
+        tagService.save(savedPost, postDto.getTagString());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 

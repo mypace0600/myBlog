@@ -2,23 +2,18 @@ package com.project.myBlog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @EnableJpaAuditing
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-@Builder
 @Table(name = "tb_post")
 public class Post {
 
@@ -32,7 +27,7 @@ public class Post {
     @Column(nullable = false, columnDefinition="TEXT")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 
@@ -48,16 +43,18 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime updateAt;
 
-    private String tagString;
-
     @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id desc ")
     private List<Image> imageList;
 
     @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id desc ")
     private List<Comment> commentList;
+
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(mappedBy="post",fetch = FetchType.EAGER)
+    private List<PostTag> postTagList = new ArrayList<>();
 
 }
