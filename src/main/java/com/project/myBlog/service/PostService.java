@@ -4,9 +4,12 @@ import com.project.myBlog.config.PrincipalDetail;
 
 import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
+import com.project.myBlog.entity.PostTag;
 import com.project.myBlog.entity.RoleType;
 import com.project.myBlog.entity.User;
 import com.project.myBlog.repository.PostRepository;
+import com.project.myBlog.repository.PostTagRepository;
+import com.project.myBlog.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +19,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,6 +29,8 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostTagRepository postTagRepository;
+    private final TagRepository tagRepository;
     @Transactional(readOnly = true)
     public Page<Post> getList(Pageable pageable){
         return postRepository.findAll(pageable);
@@ -44,18 +50,31 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Post findByIdAndUser(int id, Optional<PrincipalDetail> principal) {
-        Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public PostDto findByIdAndUser(int id, Optional<PrincipalDetail> principal) {
 
-        if(post.isHidden()){
-            if(principal.isPresent() && (post.getUser().getId().equals(principal.get().getUser().getId()) || principal.get().getUser().getRoleType().equals(RoleType.ADMIN))){
-                return post;
-            } else {
-                throw new SecurityException("비밀글 조회 권한이 없습니다.");
-            }
-        } else {
-            return post;
+        PostDto postDto = new PostDto();
+        Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        postDto.setTitle(post.getTitle());
+        postDto.setContent(post.getContent());
+        postDto.setHidden(post.isHidden());
+
+        if (post.isHidden() && principal.isPresent()
+                && (post.getUser().getId().equals(principal.get().getUser().getId())
+                        || principal.get().getUser().getRoleType().equals(RoleType.ADMIN))){
+            throw new SecurityException("비밀글 조회 권한이 없습니다.");
         }
+
+        StringBuilder tagStringBuilder = new StringBuilder();
+        List<PostTag> postTagList = postTagRepository.findByPostId(post.getId());
+        for(PostTag postTag:postTagList){
+            String tagName = tagRepository.findById(postTag.getTag().getId()).orElseThrow(EntityNotFoundException::new).getTagName();
+            tagStringBuilder.append("#");
+            tagStringBuilder.append(tagName);
+            tagStringBuilder.append(" ");
+        }
+        String tagString = tagStringBuilder.toString();
+        postDto.setTagString(tagString);
+        return postDto;
     }
 
     @Transactional

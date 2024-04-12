@@ -32,15 +32,15 @@ public class TagService {
        for(String t : tagArr){
            Tag tempTag = new Tag();
            String tagName = t.trim().replace(" ","_");
+           Tag savedTag = null;
            if(!duplicatedTagNameCheck(tagName)){
                tempTag.setTagName(tagName);
-               tagRepository.save(tempTag);
+               savedTag = tagRepository.save(tempTag);
+               PostTag tempPostTag = new PostTag();
+               tempPostTag.setPost(savedPost);
+               tempPostTag.setTag(savedTag);
+               postTagRepository.save(tempPostTag);
            }
-           Tag savedTag = tagRepository.findByTagName(tagName).orElseThrow(EntityNotFoundException::new);
-           PostTag tempPostTag = new PostTag();
-           tempPostTag.setPost(savedPost);
-           tempPostTag.setTag(savedTag);
-           postTagRepository.save(tempPostTag);
        }
    }
 }

@@ -50,9 +50,9 @@ public class PostController {
 
     @GetMapping("/post/{id}")
     public String findById(@PathVariable int id, Model model, @AuthenticationPrincipal Optional<PrincipalDetail> principal){
-        Post post = postService.findByIdAndUser(id,principal);
+        PostDto postDto = postService.findByIdAndUser(id,principal);
         postService.updateViewCount(id);
-        model.addAttribute("post",post);
+        model.addAttribute("post",postDto);
         return "post/detail";
     }
 
