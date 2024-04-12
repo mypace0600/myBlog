@@ -31,6 +31,9 @@ public class TagService {
        String[] tagArr = tagString.split("#");
        for(String t : tagArr){
            String tagName = t.trim().replaceAll(" ","_");
+           if(tagName.isEmpty()){
+               continue;
+           }
            Tag tempTag = tagRepository.findByTagName(tagName).orElseGet(Tag::new);
            tempTag.setTagName(tagName);
            tagRepository.save(tempTag);
