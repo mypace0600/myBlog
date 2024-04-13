@@ -12,15 +12,14 @@
 
 <main layout:fragment="content">
     <div class="container">
-        <div>
-            <h3 th:text="${post.title}"></h3>
-        </div>
-        <div>
-            <div th:utext="${post.content}" ></div>
-        </div>
-        <div>
-            <div th:text="${post.tagString}"></div>
-        </div>
+        <th:block th:each="post, status: ${postList.getContent()}">
+            <a th:href="'/post/'+${post.id}" >
+                <div class="row">
+                    <div>[[${post.title}]]</div>
+                    <div>[[${post.count}]]</div>
+                </div>
+            </a>
+        </th:block>
     </div>
 </main>
 </html>

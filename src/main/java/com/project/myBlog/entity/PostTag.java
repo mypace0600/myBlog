@@ -1,25 +1,23 @@
 package com.project.myBlog.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Entity
 @Data
-@Table(name = "tb_image")
-public class Image {
+@Table(name = "tb_post_tag")
+public class PostTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "postId")
     private Post post;
 
-    @Column(name = "imgUrl", nullable = false)
-    private String imgUrl;
-
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="tagId")
+    private Tag tag;
 }

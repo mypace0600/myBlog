@@ -39,11 +39,11 @@ public class User {
     private LocalDateTime updateAt;
 
     @JsonIgnoreProperties({"user"})
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Post> postList;
 
     @JsonIgnoreProperties({"user"})
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
 
     public static User createUser(User user, PasswordEncoder passwordEncoder) {

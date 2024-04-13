@@ -12,9 +12,6 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@EnableJpaAuditing
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Table(name = "tb_comment")
 public class Comment {

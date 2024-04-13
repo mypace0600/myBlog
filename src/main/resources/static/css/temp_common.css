@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+:root{
+    --background1: #181818; /*어두움*/
+    --background2:#252525; /*밝음*/
+    --line:#524f4fa8;
+    --font1:#808080;
+    --font2:#c7ac54;
+    --font3:#cac3c3;
+    --shadow:rgba(0.6, 0.6, 0.6, 0.6); /* 그림자 */
+}
+
+a:link {
+    color : #a1a1a1;
+    text-decoration: none;
+}
+a:visited {
+    color : #a1a1a1;
+    text-decoration: none;
+}
+button{
+    border: 0;
+    background: none;
+    color : #a1a1a1;
+    text-decoration: none;
+    font-weight:bolder;
+    cursor:pointer;
+}
+body {
+    overflow: hidden;
+    background: var(--background1);
+    max-height: 100vh;
+    min-height: 100vh;
+    width: 100vw;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 5vw 5vw 80vw 10vw;
+    grid-template-rows:2vh 7vh 87vh 4vh;
+    grid-template-areas:  "header header header header"
+                "nav nav nav nav"
+                "rownum rownum main zoom"
+                "footer footer footer footer "
+
+}
+header{ grid-area: header;
+    grid-column: 3/4;
+    border-bottom: #181818 1px solid;
+    color: var(--font1);
+    user-select: none;
+}
+nav{
+    grid-column: 3/4;
+    grid-row: 2/3;
+    color: var(--font1);
+    max-height: 10vh;
+    max-width: 100%;
+    min-width: 100%;
+}
+nav button{
+    color: var(--font1);
+    transition: all 0.3s;
+    height: 100%;
+    width: 10vw;
+    text-align: center;
+}
+nav button:not(:last-child){
+    float: left;
+}
+nav button span {
+    display: inline;
+    font-size: larger;
+}
+nav button:hover {
+    margin-top: 15px;
+    border-radius: 2px;
+    background:var(--background2);
+    animation: line 0.3s;
+}
+
+.rows {
+    grid-area: rownum;
+    background: var(--background1);
+    display:flex;
+    color: var(--font1);
+    font-size: 11px;
+    line-height: 220%;
+}
+.line_container{
+    display: flex;
+}
+.line_container div {
+    background-color: var(--line);
+}
+
+/* 메인 */
+main{
+  background-color: var(--background2);
+  padding-top: 150px;
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+  color: var(--font1);
+  overflow-wrap: break-word;
+}
