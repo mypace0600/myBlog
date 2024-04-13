@@ -56,4 +56,22 @@ public class PostController {
         return "post/detail";
     }
 
+    @GetMapping("/post/edit")
+    public String postEditForm() {
+        return "post/edit_post";
+    }
+
+//    @PostMapping("/post/edit/{id}")
+//    public ResponseDto<Integer> postEdit(@PathVariable int id, Model model, @AuthenticationPrincipal Optional<PrincipalDetail> principal) {
+//        PostDto postDto = postService.findByIdAndUser(id,principal);
+//        postService.updateViewCount(id);
+//        model.addAttribute("post",postDto);
+//        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+//    }
+//    @GetMapping("/post/{id}")
+//    public String postDelete() {
+//
+//        return "/redirect";
+//
+//    }
 }
