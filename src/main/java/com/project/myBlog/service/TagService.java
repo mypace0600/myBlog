@@ -23,11 +23,6 @@ public class TagService {
     private final TagRepository tagRepository;
     private final PostTagRepository postTagRepository;
 
-    public boolean duplicatedTagNameCheck(String tagName){
-        Optional<Tag> tag = tagRepository.findByTagName(tagName);
-        return tag.isPresent();
-    }
-
    public void save(Post savedPost, String tagString){
        String[] tagArr = tagString.split("#");
        for(String t : tagArr){
@@ -49,19 +44,6 @@ public class TagService {
     public void edit(Post savedPost, String tagString) {
         String[] tagArr = tagString.split("#");
         postTagRepository.deleteAllByPostId(savedPost.getId());
-        for(String t : tagArr){
-            String tagName = t.trim().replaceAll(" ","_");
-            if(tagName.isEmpty()){
-                continue;
-            }
-            Tag tempTag = tagRepository.findByTagName(tagName).orElseGet(Tag::new);
-            tempTag.setTagName(tagName);
-            tagRepository.save(tempTag);
-
-            PostTag tempPostTag = new PostTag();
-            tempPostTag.setPost(savedPost);
-            tempPostTag.setTag(tempTag);
-            postTagRepository.save(tempPostTag);
-        }
+        save(savedPost, tagString);
     }
 }
