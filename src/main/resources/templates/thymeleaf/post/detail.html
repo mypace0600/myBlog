@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+정<html xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/default_layout}"
 >
 
 <th:block layout:fragment="script">
     <script type="text/javascript" th:src="@{/js/post.js}"></script>
-    <script>
-    </script>
 </th:block>
 
 <main layout:fragment="content">
@@ -21,14 +20,14 @@
         <div>
             <div th:text="${post.tagString}"></div>
         </div>
-        <div>
-            <button class="post" onclick="location.href='/post/edit_post'"><span>수정</span></button>
-
-        </div>
-        <div>
-            <button>delete</button>
-        </div>
-
+        <th:block sec:authorize="hasRole(T(com.project.myBlog.entity.RoleType).ADMIN)">
+            <div>
+                <button><a th:href="'/post/edit/'+${post.id}">edit</a></button>
+            </div>
+            <div>
+                <button>delete</button>
+            </div>
+        </th:block>
     </div>
 </main>
 </html>
