@@ -107,4 +107,13 @@ public class PostService {
 
         return postDto;
     }
+
+    public Post edit(PostDto postDto, User user) {
+        Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+        post.setHidden(postDto.isHidden());
+        post.setUpdateAt(LocalDateTime.now());
+        return postRepository.save(post);
+    }
 }

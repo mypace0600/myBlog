@@ -11,4 +11,6 @@ public interface PostTagRepository extends JpaRepository<PostTag, Integer> {
     List<PostTag> findByPostId(Integer id);
 
     Optional<PostTag> findByPostIdAndTagId(Integer id, Integer id1);
+
+    void deleteAllByPostId(Integer id);
 }

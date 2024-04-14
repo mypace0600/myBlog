@@ -18,6 +18,7 @@
 
     <div class="container">
         <form>
+            <input type="hidden" id="id" name="id" th:value="${post.id}"/>
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" placeholder="Enter title" id="title" th:value="${post.title}">
@@ -33,7 +34,7 @@
             <label for="hiddenStat">비밀글 설정</label>
             <input type="checkbox" id="hiddenStat" name="hiddenStat" th:value="${post.hidden}"/>
         </form>
-        <button id="btn-save" class="btn btn-primary">수정 완료</button>
+        <button id="btn-edit" class="btn btn-primary">수정 완료</button>
         <button class="btn btn-danger"><a th:href="'/post/'+${post.id}">취소</a></button>
     </div>
 </main>

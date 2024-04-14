@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -44,4 +45,23 @@ public class TagService {
            postTagRepository.save(tempPostTag);
        }
    }
+
+    public void edit(Post savedPost, String tagString) {
+        String[] tagArr = tagString.split("#");
+        postTagRepository.deleteAllByPostId(savedPost.getId());
+        for(String t : tagArr){
+            String tagName = t.trim().replaceAll(" ","_");
+            if(tagName.isEmpty()){
+                continue;
+            }
+            Tag tempTag = tagRepository.findByTagName(tagName).orElseGet(Tag::new);
+            tempTag.setTagName(tagName);
+            tagRepository.save(tempTag);
+
+            PostTag tempPostTag = new PostTag();
+            tempPostTag.setPost(savedPost);
+            tempPostTag.setTag(tempTag);
+            postTagRepository.save(tempPostTag);
+        }
+    }
 }

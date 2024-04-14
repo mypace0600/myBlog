@@ -63,17 +63,11 @@ public class PostController {
         return "post/edit_post";
     }
 
-//    @PostMapping("/post/edit/{id}")
-//    public ResponseDto<Integer> postEdit(@PathVariable int id, Model model, @AuthenticationPrincipal Optional<PrincipalDetail> principal) {
-//        PostDto postDto = postService.findByIdAndUser(id,principal);
-//        postService.updateViewCount(id);
-//        model.addAttribute("post",postDto);
-//        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
-//    }
-//    @GetMapping("/post/{id}")
-//    public String postDelete() {
-//
-//        return "/redirect";
-//
-//    }
+    @PostMapping("/post/edit")
+    @ResponseBody
+    public ResponseDto<Integer> postEdit(@RequestBody PostDto postDto, Model model, @AuthenticationPrincipal PrincipalDetail principal) {
+        Post savedPost = postService.edit(postDto,principal.getUser());
+        tagService.edit(savedPost, postDto.getTagString());
+        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+    }
 }
