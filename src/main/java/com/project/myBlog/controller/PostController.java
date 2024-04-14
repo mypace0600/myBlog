@@ -56,8 +56,10 @@ public class PostController {
         return "post/detail";
     }
 
-    @GetMapping("/post/edit")
-    public String postEditForm() {
+    @GetMapping("/post/edit/{id}")
+    public String postEditForm(@PathVariable int id, Model model) {
+        PostDto post = postService.findById(id);
+        model.addAttribute("post",post);
         return "post/edit_post";
     }
 

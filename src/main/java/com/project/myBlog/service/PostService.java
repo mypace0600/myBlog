@@ -54,6 +54,7 @@ public class PostService {
 
         PostDto postDto = new PostDto();
         Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        postDto.setId(post.getId());
         postDto.setTitle(post.getTitle());
         postDto.setContent(post.getContent());
         postDto.setHidden(post.isHidden());
@@ -84,4 +85,26 @@ public class PostService {
         post.setCount(count);
     }
 
+    @Transactional(readOnly = true)
+    public PostDto findById(int id) {
+        Post savedPost = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        PostDto postDto = new PostDto();
+        postDto.setId(savedPost.getId());
+        postDto.setTitle(savedPost.getTitle());
+        postDto.setContent(savedPost.getContent());
+        postDto.setHidden(savedPost.isHidden());
+
+        StringBuilder tagStringBuilder = new StringBuilder();
+        List<PostTag> postTagList = savedPost.getPostTagList();
+        for(PostTag pt:postTagList){
+            String tag = pt.getTag().getTagName();
+            tagStringBuilder.append("#");
+            tagStringBuilder.append(tag);
+            tagStringBuilder.append(" ");
+        }
+        String tagString = tagStringBuilder.toString();
+        postDto.setTagString(tagString);
+
+        return postDto;
+    }
 }
