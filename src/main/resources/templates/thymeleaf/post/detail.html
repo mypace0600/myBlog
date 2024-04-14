@@ -11,6 +11,7 @@
 
 <main layout:fragment="content">
     <div class="container">
+        <input type="hidden" id="id" name="id" th:value="${post.id}"/>
         <div>
             <h3 th:text="${post.title}"></h3>
         </div>
@@ -25,7 +26,7 @@
                 <button><a th:href="'/post/edit/'+${post.id}">edit</a></button>
             </div>
             <div>
-                <button>delete</button>
+                <button id="btn-delete">delete</button>
             </div>
         </th:block>
     </div>
