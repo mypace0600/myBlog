@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/","/auth/**","/js/**","/css/**","/img/**","/thymeleaf/**").permitAll()
                         .requestMatchers("/post/write").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.toString())
+                        .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/**").permitAll()
                         .anyRequest().authenticated()
                 )
