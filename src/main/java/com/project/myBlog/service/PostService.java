@@ -116,4 +116,10 @@ public class PostService {
         post.setUpdateAt(LocalDateTime.now());
         return postRepository.save(post);
     }
+
+    @Transactional
+    public void deleteById(Integer id) {
+        postTagRepository.deleteAllByPostId(id);
+        postRepository.deleteById(id);
+    }
 }

@@ -37,7 +37,7 @@ public class PostController {
 
     @GetMapping("/post/write")
     public String postWriteForm(){
-        return "post/writeForm";
+        return "post/write_form";
     }
 
     @PostMapping("/post/write")
@@ -60,7 +60,7 @@ public class PostController {
     public String postEditForm(@PathVariable int id, Model model) {
         PostDto post = postService.findById(id);
         model.addAttribute("post",post);
-        return "post/edit_post";
+        return "post/edit_form";
     }
 
     @PostMapping("/post/edit")
@@ -69,5 +69,12 @@ public class PostController {
         Post savedPost = postService.edit(postDto,principal.getUser());
         tagService.edit(savedPost, postDto.getTagString());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+    }
+
+    @PostMapping("/post/delete")
+    @ResponseBody
+    public ResponseDto<Integer> postDelete(@RequestBody Post post){
+        postService.deleteById(post.getId());
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }
