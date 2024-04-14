@@ -84,4 +84,10 @@ public class PostService {
         post.setCount(count);
     }
 
+    @Transactional
+    public void deletePost(Integer postId) {
+        postRepository.deleteById(postId);
+    }
+
+
 }

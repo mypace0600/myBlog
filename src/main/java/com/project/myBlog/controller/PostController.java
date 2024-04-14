@@ -56,4 +56,15 @@ public class PostController {
         return "post/detail";
     }
 
+//    @DeleteMapping("/post/{id}")
+//    public ResponseDto<Integer> postDelete(@PathVariable Integer postId) {
+//        postService.deletePost(postId);
+//        return new ResponseDto<Integer>(HttpStatus.OK.value().1);
+//    }
+
+    @GetMapping("/post/{id}")
+    public String postDelete(@PathVariable Integer postId) {
+        postService.deletePost(postId);
+        return "redirect:/post";
+    }
 }

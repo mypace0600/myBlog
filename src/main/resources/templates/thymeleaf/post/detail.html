@@ -21,6 +21,9 @@
         <div>
             <div th:text="${post.tagString}"></div>
         </div>
+        <div>
+            <button><a th:href="@{/post/delete(id=${post.id})}">글 삭제</a></button>
+        </div>
     </div>
 </main>
 </html>
