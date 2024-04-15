@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-정<html xmlns:th="http://thymeleaf.org"
+<html xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/default_layout}"
@@ -25,13 +25,14 @@
             <div>
                 <button><a th:href="'/post/edit/'+${post.id}">edit</a></button>
             </div>
+<!--            <div>-->
+<!--                <button id="btn-delete">delete</button>-->
+<!--            </div> -->
             <div>
-                <button id="btn-delete">delete</button>
-            </div>
+            <button><a th:href="'/post/delete/'+${post.id}">delete</a></button>
+        </div>
         </th:block>
+
     </div>
 </main>
 </html>
-
-
-

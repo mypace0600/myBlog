@@ -54,7 +54,7 @@ public class Post {
     private List<Comment> commentList;
 
     @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy="post",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="post",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<PostTag> postTagList = new ArrayList<>();
 
 }

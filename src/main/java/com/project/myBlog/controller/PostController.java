@@ -65,16 +65,24 @@ public class PostController {
 
     @PostMapping("/post/edit")
     @ResponseBody
-    public ResponseDto<Integer> postEdit(@RequestBody PostDto postDto, Model model, @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseDto<Integer> postEdit(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal) throws Exception {
         Post savedPost = postService.edit(postDto,principal.getUser());
         tagService.edit(savedPost, postDto.getTagString());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 
+
+    @Deprecated
     @PostMapping("/post/delete")
     @ResponseBody
     public ResponseDto<Integer> postDelete(@RequestBody Post post){
         postService.deleteById(post.getId());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @GetMapping("/post/delete/{id}")
+    public String deletePost(@PathVariable Integer id){
+        postService.deleteById(id);
+        return "redirect:/";
     }
 }

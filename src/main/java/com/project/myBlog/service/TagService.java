@@ -42,7 +42,6 @@ public class TagService {
    }
 
     public void edit(Post savedPost, String tagString) {
-        String[] tagArr = tagString.split("#");
         postTagRepository.deleteAllByPostId(savedPost.getId());
         save(savedPost, tagString);
     }
