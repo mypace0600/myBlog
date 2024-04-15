@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
@@ -31,6 +30,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostTagRepository postTagRepository;
     private final TagRepository tagRepository;
+
     @Transactional(readOnly = true)
     public Page<Post> getList(Pageable pageable){
         return postRepository.findAll(pageable);
@@ -125,5 +125,12 @@ public class PostService {
     public void deleteById(Integer id) {
 //        postTagRepository.deleteAllByPostId(id);
         postRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Page<Post> findAllByTagId(int id, Pageable pageable) {
+        Page<PostTag> postTags = postTagRepository.findAllPostTagByTagId(id,pageable);
+
+
     }
 }

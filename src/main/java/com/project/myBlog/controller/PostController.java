@@ -4,10 +4,12 @@ import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
 import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
+import com.project.myBlog.entity.Tag;
 import com.project.myBlog.service.PostService;
 import com.project.myBlog.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -71,7 +74,6 @@ public class PostController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 
-
     @Deprecated
     @PostMapping("/post/delete")
     @ResponseBody
@@ -84,5 +86,14 @@ public class PostController {
     public String deletePost(@PathVariable Integer id){
         postService.deleteById(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/post/tag/{id}")
+    public String postListByTagId(@PathVariable int id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
+        Page<Post> postList = postService.findAllByTagId(id,pageable);
+        model.addAttribute("postList",postList);
+        Tag tag = tagService.findById(id);
+        model.addAttribute("tag",tag);
+        return "post/post_list";
     }
 }
