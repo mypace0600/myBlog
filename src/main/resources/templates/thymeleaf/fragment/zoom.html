@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
 <div class="zoom" th:fragment="zoomFragment">
-    <span>tag</span>
-    <span>tag</span>
-    <span>tag</span>
-    <span>tag</span>
-
-    <!-- <h1>내용 미리보기</h1>
-
-    <h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1> -->
+    <th:block th:each="tag, status: ${tagList}">
+        <span>[[${tag.tagName}]]  [[${tag.postTagList.size()}]]</span>
+    </th:block>
 </div>
 </html>

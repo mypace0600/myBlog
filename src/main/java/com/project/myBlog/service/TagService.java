@@ -8,6 +8,7 @@ import com.project.myBlog.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,4 +46,12 @@ public class TagService {
         postTagRepository.deleteAllByPostId(savedPost.getId());
         save(savedPost, tagString);
     }
+
+    public List<Tag> findAll() {
+       return tagRepository.findAllOrderByPostCount();
+    }
+
+    /*public Tag findById(int id) {
+       return tagRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }*/
 }
