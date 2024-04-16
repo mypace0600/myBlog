@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/default_layout}"
 >
 
 <th:block layout:fragment="script">
     <script type="text/javascript" th:src="@{/js/post.js}"></script>
-    <script>
-    </script>
 </th:block>
 
 <main layout:fragment="content">
     <div class="container">
+        <input type="hidden" id="id" name="id" th:value="${post.id}"/>
         <div>
             <h3 th:text="${post.title}"></h3>
         </div>
@@ -21,9 +21,18 @@
         <div>
             <div th:text="${post.tagString}"></div>
         </div>
+        <th:block sec:authorize="hasRole(T(com.project.myBlog.entity.RoleType).ADMIN)">
+            <div>
+                <button><a th:href="'/post/edit/'+${post.id}">edit</a></button>
+            </div>
+<!--            <div>-->
+<!--                <button id="btn-delete">delete</button>-->
+<!--            </div> -->
+            <div>
+                <button><a th:href="'/post/delete/'+${post.id}">delete</a></button>
+            </div>
+        </th:block>
+
     </div>
 </main>
 </html>
-
-
-

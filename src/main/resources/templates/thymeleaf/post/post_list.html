@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}"
+>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/post.js}"></script>
+</th:block>
+
+<main layout:fragment="content">
+    <div class="container">
+        <h3>Tag : [[${tag.tagName}]]</h3>
+        <br>
+        <th:block th:each="postTag, status: ${postTagList.getContent()}">
+            <a th:href="'/post/'+${postTag.post.id}" >
+                <div class="row">
+                    <div>[[${postTag.post.title}]]</div>
+                    <div>[[${postTag.post.count}]]</div>
+                </div>
+            </a>
+        </th:block>
+    </div>
+
+    <ul class="pagination justify-content-center" th:if="${postTagList.totalPages > 1}">
+        <li class="page-item" th:classappend="${postTagList.first} ? 'disabled' : ''">
+            <a class="page-link" th:href="@{'/post/tag?page='+=0}">First</a>
+        </li>
+        <li class="page-item" th:classappend="${postTagList.first} ? 'disabled' : ''">
+            <a class="page-link" th:href="@{'/post?page='+${postTagList.number-1}}">Previous</a>
+        </li>
+        <li class="page-item" th:each="i : ${#numbers.sequence(0, postTagList.totalPages-1)}">
+            <a class="page-link" th:href="@{'/post?page=' + ${i}}" th:text="${i+1}"></a>
+        </li>
+        <li class="page-item" th:classappend="${postTagList.last} ? 'disabled' : ''">
+            <a class="page-link" th:href="@{'/post?page='+${postTagList.number+1}}">Next</a>
+        </li>
+        <li class="page-item" th:classappend="${postTagList.last} ? 'disabled' : ''">
+            <a class="page-link" th:href="@{'/post?page='+${postTagList.totalPages-1}}">Last</a>
+        </li>
+    </ul>
+
+</main>
+</html>
+
+
+

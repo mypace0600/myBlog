@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
@@ -31,6 +30,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostTagRepository postTagRepository;
     private final TagRepository tagRepository;
+
     @Transactional(readOnly = true)
     public Page<Post> getList(Pageable pageable){
         return postRepository.findAll(pageable);
@@ -54,6 +54,7 @@ public class PostService {
 
         PostDto postDto = new PostDto();
         Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        postDto.setId(post.getId());
         postDto.setTitle(post.getTitle());
         postDto.setContent(post.getContent());
         postDto.setHidden(post.isHidden());
@@ -82,6 +83,48 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         int count = post.getCount()+1;
         post.setCount(count);
+    }
+
+    @Transactional(readOnly = true)
+    public PostDto findById(int id) {
+        Post savedPost = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        PostDto postDto = new PostDto();
+        postDto.setId(savedPost.getId());
+        postDto.setTitle(savedPost.getTitle());
+        postDto.setContent(savedPost.getContent());
+        postDto.setHidden(savedPost.isHidden());
+
+        StringBuilder tagStringBuilder = new StringBuilder();
+        List<PostTag> postTagList = savedPost.getPostTagList();
+        for(PostTag pt:postTagList){
+            String tag = pt.getTag().getTagName();
+            tagStringBuilder.append("#");
+            tagStringBuilder.append(tag);
+            tagStringBuilder.append(" ");
+        }
+        String tagString = tagStringBuilder.toString();
+        postDto.setTagString(tagString);
+
+        return postDto;
+    }
+
+    public Post edit(PostDto postDto, User user) throws Exception {
+        if (user.getRoleType().equals(RoleType.ADMIN)) {
+        Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+        post.setHidden(postDto.isHidden());
+        post.setUpdateAt(LocalDateTime.now());
+        return postRepository.save(post);
+        }else {
+        throw new Exception("권한이 없음");
+        }
+    }
+
+    @Transactional
+    public void deleteById(Integer id) {
+//        postTagRepository.deleteAllByPostId(id);
+        postRepository.deleteById(id);
     }
 
 }
