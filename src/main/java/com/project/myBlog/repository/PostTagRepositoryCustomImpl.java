@@ -18,8 +18,9 @@ public class PostTagRepositoryCustomImpl implements PostTagRepositoryCustom{
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+
     @Override
-    public Page<PostTag> findAllPostTagByTagId(int tagId, Pageable pageable){
+    public Page<PostTag> postTagsByTagId(int tagId, Pageable pageable) {
         List<PostTag> content = queryFactory
                 .select(QPostTag.postTag)
                 .from(QPostTag.postTag)
@@ -29,7 +30,6 @@ public class PostTagRepositoryCustomImpl implements PostTagRepositoryCustom{
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
         Long count =  queryFactory
                 .select(QPostTag.postTag)
                 .from(QPostTag.postTag)

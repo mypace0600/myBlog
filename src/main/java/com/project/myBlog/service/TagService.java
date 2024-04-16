@@ -51,7 +51,7 @@ public class TagService {
        return tagRepository.findAllOrderByPostCount();
     }
 
-    /*public Tag findById(int id) {
+    public Tag findById(int id) {
        return tagRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    }*/
+    }
 }

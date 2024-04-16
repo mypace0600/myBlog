@@ -1,4 +1,4 @@
-let index = {
+let post = {
     init : function () {
         $("#btn-save").on("click", () => {
             this.save();
@@ -108,4 +108,4 @@ let index = {
 
 }
 
-index.init();
+post.init();

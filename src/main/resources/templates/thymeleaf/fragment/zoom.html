@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <div class="zoom" th:fragment="zoomFragment">
     <th:block th:each="tag, status: ${tagList}">
-        <span>[[${tag.tagName}]]  [[${tag.postTagList.size()}]]</span>
+        <span><a th:href="'/post/tag/'+${tag.id}">[[${tag.tagName}]]  [[${tag.postTagList.size()}]]</a></span>
     </th:block>
 </div>
 </html>

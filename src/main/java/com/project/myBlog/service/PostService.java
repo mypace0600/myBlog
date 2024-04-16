@@ -127,10 +127,4 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    @Transactional
-    public Page<Post> findAllByTagId(int id, Pageable pageable) {
-        Page<PostTag> postTags = postTagRepository.findAllPostTagByTagId(id,pageable);
-
-
-    }
 }
