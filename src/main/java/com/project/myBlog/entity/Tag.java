@@ -23,4 +23,5 @@ public class Tag {
     @OneToMany(mappedBy="tag",fetch = FetchType.EAGER)
     private List<PostTag> postTagList = new ArrayList<>();
 
+
 }
