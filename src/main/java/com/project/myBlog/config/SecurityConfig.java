@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/**").permitAll()
+                        .requestMatchers("/oauth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -67,42 +68,8 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                         .logoutSuccessUrl("/")
-                )
-                // oauth 로그인 구현을 위한 작업
-                .oauth2Login((oauth2Login) -> oauth2Login
-                        .userInfoEndpoint((userInfo) -> userInfo
-                                .userAuthoritiesMapper(grantedAuthoritiesMapper())
-                        )
                 );
 
         return http.build();
     }
-
-    private GrantedAuthoritiesMapper grantedAuthoritiesMapper() {
-        return (authorities) -> {
-            Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
-
-            authorities.forEach((authority) -> {
-                GrantedAuthority mappedAuthority;
-
-                if (authority instanceof OidcUserAuthority) {
-                    OidcUserAuthority userAuthority = (OidcUserAuthority) authority;
-                    mappedAuthority = new OidcUserAuthority(
-                            "OIDC_USER", userAuthority.getIdToken(), userAuthority.getUserInfo());
-                } else if (authority instanceof OAuth2UserAuthority) {
-                    OAuth2UserAuthority userAuthority = (OAuth2UserAuthority) authority;
-                    mappedAuthority = new OAuth2UserAuthority(
-                            "OAUTH2_USER", userAuthority.getAttributes());
-                } else {
-                    mappedAuthority = authority;
-                }
-
-                mappedAuthorities.add(mappedAuthority);
-            });
-
-            return mappedAuthorities;
-        };
-    }
-
-
 }

@@ -31,6 +31,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
+    private String oauth;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;

@@ -113,6 +113,9 @@ let post = {
     },
 
     githubLogin : function (){
+        let clientId = "92e60583653691536dee";
+        let githubLoginUrl = `https://github.com/login/oauth/authorize?client_id=`+clientId;
+        window.location.href = githubLoginUrl;
     },
 
     commentSave : function(){
@@ -135,7 +138,7 @@ let post = {
                 alert("댓글 작성 실패");
             }
         }).fail(function (error){
-            alert(JSON.stringify(error));
+            alert("로그인이 필요합니다.");
         });
     }
 

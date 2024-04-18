@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class MainController {
 
-
-
     @GetMapping("/")
     public String main() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
-            log.debug("@@@@@@@@@@@@@@ User '{}' has been successfully authenticated", auth.getName());
+            log.debug("@@@@@@@@@@@@@@ User '{}' has been successfully authenticated", auth.getPrincipal());
             log.debug("@@@@@@@@@@@@@@ User authorities: {}", auth.getAuthorities());
         } else {
             log.error("User authentication failed");
