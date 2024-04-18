@@ -3,8 +3,9 @@
 
     <div class="zoom" th:fragment="zoomFragment">
 
-        <a href="/tag/list">show tags</a>
+<!--        <a href="/tag/list">show tags</a>-->
         <div th:block  th:each="tags : ${tags}">
+            <span th:text="${tags.tagName}"></span>
             <!--        <span th:text="${tags}"></span>-->
             <div>
 
