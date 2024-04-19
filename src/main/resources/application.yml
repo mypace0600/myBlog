@@ -19,7 +19,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/blog
     username: postgres
-    password: sa
+    password: postgres
 
   jpa:
     show-sql: true
@@ -30,8 +30,20 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  servlet:
-    multipart:
-      max-file-size: 20MB
-      max-request-size: 100MB
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 92e60583653691536dee
+            client-secret: 8ed81b7b451039f19d521bde31fe4720c301144c
 
+
+logging:
+  level:
+    root: debug
+
+github:
+  client-id: 92e60583653691536dee
+  client-secret: 8ed81b7b451039f19d521bde31fe4720c301144c
+  password : githubPasswordIsOne
