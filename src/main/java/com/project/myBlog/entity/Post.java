@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import javax.xml.transform.Result;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +57,6 @@ public class Post {
     @JsonIgnoreProperties({"post"})
     @OneToMany(mappedBy="post",fetch = FetchType.EAGER)
     private List<PostTag> postTagList = new ArrayList<>();
+
 
 }

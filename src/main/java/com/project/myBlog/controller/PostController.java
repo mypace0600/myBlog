@@ -4,6 +4,7 @@ import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
 import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
+import com.project.myBlog.repository.TagRepository;
 import com.project.myBlog.service.PostService;
 import com.project.myBlog.service.TagService;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,17 @@ public class PostController {
 
     private final PostService postService;
     private final TagService tagService;
+    private final TagRepository tagRepository;
 
     @GetMapping("/post")
     public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
+        model.addAttribute("tags", tagRepository.findAll());
         return "post/post";
     }
+
+
+
 
     @GetMapping("/post/write")
     public String postWriteForm(){

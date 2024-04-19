@@ -1,6 +1,5 @@
 package com.project.myBlog.controller;
 
-//import com.project.myBlog.common.TagListModel;
 import com.project.myBlog.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,18 +12,16 @@ public class MainController {
 
     private final TagRepository tagRepository;
 
+
     @GetMapping("/")
     public String main(Model model) {
         model.addAttribute("tags", tagRepository.findAll());
-//        model.addAttribute("tags", tagListModel.getTags());
         return "index";
     }
 
-//    @GetMapping("/post")
-//    public String zoomTagList(Model model) {
-//        model.addAttribute("tags", tagRepository.findAll());
-//        return "fragment/zoom";
-//    }
+
+
+
     @GetMapping("/lop")
     public String post() {
 
