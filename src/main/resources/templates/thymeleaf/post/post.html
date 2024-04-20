@@ -3,24 +3,20 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}"
 >
-
 <th:block layout:fragment="script">
     <script type="text/javascript" th:src="@{/js/post.js}"></script>
 </th:block>
 
-<main layout:fragment="content">
-    <div class="container">
-        <th:block th:each="post, status: ${postList.getContent()}">
-            <a th:href="'/post/'+${post.id}" >
-                <div class="row">
-                    <div>[[${post.title}]]</div>
-                    <div>[[${post.count}]]</div>
-                </div>
-            </a>
-        </th:block>
-    </div>
-</main>
+<!--<main layout:fragment="content">-->
+<!--    <div class="container">-->
+<!--        <th:block th:each="post, status: ${postList.getContent()}">-->
+<!--            <a th:href="'/post/'+${post.id}">-->
+<!--                <div class="row">-->
+<!--                    <div>[[${post.title}]]</div>-->
+<!--                    <div>[[${post.count}]]</div>-->
+<!--                </div>-->
+<!--            </a>-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--</main>-->
 </html>
-
-
-

@@ -4,6 +4,8 @@ import com.project.myBlog.common.ResponseDto;
 import com.project.myBlog.config.PrincipalDetail;
 import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
+import com.project.myBlog.entity.PostTag;
+import com.project.myBlog.repository.PostTagRepository;
 import com.project.myBlog.repository.TagRepository;
 import com.project.myBlog.service.PostService;
 import com.project.myBlog.service.TagService;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,6 +34,7 @@ public class PostController {
     private final PostService postService;
     private final TagService tagService;
     private final TagRepository tagRepository;
+    private final PostTagRepository postTagRepository;
 
     @GetMapping("/post")
     public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
@@ -61,5 +66,19 @@ public class PostController {
         model.addAttribute("post",postDto);
         return "post/detail";
     }
+    @GetMapping("/post/tag/{id}")//post에서 특정 tag가 포함된  List 전체 조회
+    public String findAllByTagId(@PathVariable Integer id){
+        List<PostTag> postTagList = postTagRepository.findAllByTagId(id);
 
+        List<Post> posts = new ArrayList<>();
+
+        for(PostTag postTag : postTagList){
+            posts.add(postTag.getPost());
+        }
+
+        System.out.println(posts);
+        log.debug("postTagList: " + postTagList);
+        return "post/post";
+    }
 }
+

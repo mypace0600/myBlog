@@ -3,6 +3,9 @@ package com.project.myBlog.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -14,7 +17,9 @@ import java.util.List;
 
 @Entity
 @EnableJpaAuditing
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = "id")
 @Table(name = "tb_post")
 public class Post {
 

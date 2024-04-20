@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <div class="zoom" th:fragment="zoomFragment">
+<div class="zoom" th:fragment="zoomFragment">
 
-<!--        <a href="/tag/list">show tags</a>-->
-        <div th:block  th:each="tags : ${tags}">
-            <span th:text="${tags.tagName}"></span>
-            <div>
+    <!--        <a href="/tag/list">show tags</a>-->
+    <div th:block th:each="tag : ${tags}">
 
-
-                <!-- <h1>내용 미리보기</h1>
-
-                <h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1> -->
-            </div>
+<!--        <a href="/post/tag/+${tag.id}">-->
+        <a th:href="@{/post/tag/{id}(id = ${tag.id})}">
+            <span th:text="${tag.tagName}"></span>
+        </a>
+            <!-- <h1>내용 미리보기</h1>
+            <h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1> -->
+    </div>
+</div>
 </html>

@@ -23,12 +23,10 @@ public class TagService {
     private final TagRepository tagRepository;
     private final PostTagRepository postTagRepository;
 
-
     public boolean duplicatedTagNameCheck(String tagName){
         Optional<Tag> tag = tagRepository.findByTagName(tagName);
         return tag.isPresent();
     }
-
    public void save(Post savedPost, String tagString){
        String[] tagArr = tagString.split("#");
        for(String t : tagArr){
@@ -46,5 +44,4 @@ public class TagService {
            postTagRepository.save(tempPostTag);
        }
    }
-
 }

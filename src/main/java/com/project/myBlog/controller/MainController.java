@@ -12,19 +12,13 @@ public class MainController {
 
     private final TagRepository tagRepository;
 
-
     @GetMapping("/")
     public String main(Model model) {
         model.addAttribute("tags", tagRepository.findAll());
         return "index";
     }
-
-
-
-
     @GetMapping("/lop")
     public String post() {
-
         return "index";
     }
 }
