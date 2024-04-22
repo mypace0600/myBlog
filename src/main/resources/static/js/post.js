@@ -9,9 +9,6 @@ let post = {
         $("#btn-delete").on("click",()=>{
             this.delete();
         });
-        $("#github-login").on("click",()=>{
-            this.githubLogin();
-        });
         $("#btn-save-comment").on("click",()=>{
             this.commentSave();
         });
@@ -112,11 +109,6 @@ let post = {
         });
     },
 
-    githubLogin : function (){
-        let clientId = "92e60583653691536dee";
-        let githubLoginUrl = `https://github.com/login/oauth/authorize?client_id=`+clientId;
-        window.location.href = githubLoginUrl;
-    },
 
     commentSave : function(){
         let data = {

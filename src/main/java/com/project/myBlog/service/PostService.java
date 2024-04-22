@@ -127,5 +127,4 @@ public class PostService {
 //        postTagRepository.deleteAllByPostId(id);
         postRepository.deleteById(id);
     }
-
 }

@@ -17,8 +17,7 @@ public class MainController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
-            log.debug("@@@@@@@@@@@@@@ User '{}' has been successfully authenticated", auth.getPrincipal());
-            log.debug("@@@@@@@@@@@@@@ User authorities: {}", auth.getAuthorities());
+            log.debug("@@@@@@@@@@@@@@ User : {}", auth.getPrincipal());
         } else {
             log.error("User authentication failed");
         }
