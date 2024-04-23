@@ -12,8 +12,23 @@
 }
 /* 데스크톱 스타일 */
 
+.nav_btn{
+}
+.nav_btn span{
+}
+/* 특정 URL에 대한 스타일 */
+.special_nav_btn  {
+    margin-top: 10px;
+    color: var(--font1);
+    border-radius: 2px;
+    background: var(--background2);
+}
+.special_nav_btn  span {
+    border-bottom: solid var(--font1) 0.1em;
+}
 
-  
+
+
 *,
 *::after,
 *::before{
