@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -21,11 +21,6 @@ public class TagService {
 
     private final TagRepository tagRepository;
     private final PostTagRepository postTagRepository;
-
-    public boolean duplicatedTagNameCheck(String tagName){
-        Optional<Tag> tag = tagRepository.findByTagName(tagName);
-        return tag.isPresent();
-    }
 
    public void save(Post savedPost, String tagString){
        String[] tagArr = tagString.split("#");
@@ -44,4 +39,17 @@ public class TagService {
            postTagRepository.save(tempPostTag);
        }
    }
+
+    public void edit(Post savedPost, String tagString) {
+        postTagRepository.deleteAllByPostId(savedPost.getId());
+        save(savedPost, tagString);
+    }
+
+    public List<Tag> findAll() {
+       return tagRepository.findAllOrderByPostCount();
+    }
+
+    public Tag findById(int id) {
+       return tagRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
 }

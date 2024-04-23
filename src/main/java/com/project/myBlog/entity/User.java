@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +31,8 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
+
+    private String oauth;
 
     @CreatedDate
     @Column(updatable = false)
@@ -54,6 +57,22 @@ public class User {
                 .createdAt(LocalDateTime.now())
                 .updateAt(LocalDateTime.now())
                 .build();
+    }
+
+    @Builder
+    public User(String email, RoleType roleType){
+        this.email = email;
+        this.roleType = roleType;
+    }
+
+    public User update(String oauthProvideCompany){
+        this.oauth = oauthProvideCompany;
+        this.updateAt = LocalDateTime.now();
+        return this;
+    }
+
+    public String getRoleType(){
+        return this.roleType.name();
     }
 }
 

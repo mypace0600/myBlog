@@ -2,10 +2,13 @@ package com.project.myBlog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "tb_post_tag")
 public class PostTag {
 
