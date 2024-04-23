@@ -125,7 +125,7 @@ let post = {
         }).done(function (resp){
             if(resp.status===200){
                 alert("댓글 작성 완료");
-                location.href="/";
+                location.href = "/post/" + data.postId;
             } else {
                 alert("댓글 작성 실패");
             }
