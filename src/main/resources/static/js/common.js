@@ -11,7 +11,24 @@ for (let i = 1; i < Lines; i++) {
     container.appendChild(line);
 }
 
+<!-- nav 스타일 -->
+document.addEventListener('DOMContentLoaded', function() {
+    // 현재 URL 가져오기
+    var currentURL = window.location.href;
+    var navButtons = document.querySelectorAll('.nav_btn');
 
-function navClick() {
-
-}
+    // 특정 URL에 대한 특별한 스타일 적용
+    if (currentURL === 'http://localhost:8080/') {
+        // 버튼 중에서 Home 버튼에만 특별한 클래스 추가
+        navButtons[0].classList.add('special_nav_btn');
+    }
+    else if (currentURL === 'http://localhost:8080/post') {
+        // 버튼 중에서 Post 버튼에만 특별한 클래스 추가
+        navButtons[1].classList.add('special_nav_btn');
+        navButtons[0].classList.add('nav_btn');
+    }
+    else if (currentURL === 'http://localhost:8080/#') {
+        // 버튼 중에서 Portfolio 버튼에만 특별한 클래스 추가
+        navButtons[2].classList.add('special_nav_btn');
+    }
+});
