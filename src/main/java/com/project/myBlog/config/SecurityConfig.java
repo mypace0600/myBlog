@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/**").permitAll()
+                        .requestMatchers("/oauth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

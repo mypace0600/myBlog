@@ -2,6 +2,7 @@ package com.project.myBlog.controller;
 
 import com.project.myBlog.entity.User;
 import com.project.myBlog.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
@@ -48,6 +49,16 @@ public class UserController {
             return "auth/joinForm";
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/oauth/login")
+    public String OAuthLogin(HttpServletRequest request){
+        String uri = request.getHeader("Referer");
+        log.debug("@@@@@@@@@@@@@@@@@@@@ uri :{}",uri);
+        if (uri != null && !uri.contains("/login")) {
+            request.getSession().setAttribute("prevPage", uri);
+        }
+        return "redirect:/login/github";
     }
 
 //    @GetMapping("/oauth/redirect")
