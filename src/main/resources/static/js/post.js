@@ -1,20 +1,26 @@
 let post = {
     init : function () {
         $("#btn-save").on("click", () => {
-            this.save();
+            this.postSave();
         });
         $("#btn-edit").on("click",()=>{
-            this.edit();
+            this.postEdit();
         });
         $("#btn-delete").on("click",()=>{
-            this.delete();
+            this.postDelete();
         });
         $("#btn-save-comment").on("click",()=>{
             this.commentSave();
         });
+        $(".btn-edit-comment").on("click",(e)=>{
+            this.commentEdit(e);
+        });
+        $(".btn-delete-comment").on("click",()=>{
+            this.commentDelete();
+        });
     },
 
-    save : function (){
+    postSave : function() {
         let checkBox = document.getElementById("hiddenStat");
         let isHiddenChecked = checkBox.checked;
         console.log("isHiddenChecked : "+isHiddenChecked);
@@ -43,7 +49,7 @@ let post = {
         });
     },
 
-    edit : function(){
+    postEdit : function() {
         let checkBox = $("#hiddenStat").val();
         let hidden = false;
         if(checkBox==="on") {
@@ -76,7 +82,7 @@ let post = {
         });
     },
 
-    delete : function (){
+    postDelete : function() {
         let checkBox = $("#hiddenStat").val();
         let hidden = false;
         if(checkBox==="on") {
@@ -109,8 +115,7 @@ let post = {
         });
     },
 
-
-    commentSave : function(){
+    commentSave : function() {
         let data = {
             postId:  $("#id").val(),
             commentContent: $("#comment-content").val()
@@ -132,6 +137,17 @@ let post = {
         }).fail(function (error){
             alert("로그인이 필요합니다.");
         });
+    },
+
+    commentEdit : function(e) {
+        let parentRow = $(e.target).closest(".comment-row");
+        console.log("parentRow :", parentRow);
+        let commentId = parentRow.children("input[type='hidden']").val();
+        console.log("Editing comment with ID:", commentId);
+        let data = {
+            commentId:  commentId,
+            commentContent: $("#comment-content").val()
+        }
     }
 
 }
