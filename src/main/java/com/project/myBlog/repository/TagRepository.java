@@ -1,6 +1,7 @@
 package com.project.myBlog.repository;
 
 import com.project.myBlog.entity.Tag;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -16,5 +17,5 @@ public interface TagRepository extends JpaRepository<Tag, Integer>,
     Optional<Tag> findByTagName(String tagName);
 
     @Query("SELECT t FROM Tag t JOIN t.postTagList pt GROUP BY t.id ORDER BY COUNT(pt.post) DESC")
-    List<Tag> findAllOrderByPostCount();
+    List<Tag> findAllOrderByPostCount(Pageable pageable);
 }

@@ -8,6 +8,9 @@ import com.project.myBlog.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +49,8 @@ public class TagService {
     }
 
     public List<Tag> findAll() {
-       return tagRepository.findAllOrderByPostCount();
+        Pageable topFive = PageRequest.of(0, 5);
+       return tagRepository.findAllOrderByPostCount(topFive);
     }
 
     public Tag findById(int id) {
