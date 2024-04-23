@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  config:
+    import: github-keys.properties
   thymeleaf:
     cache: false
     check-template-location: false
@@ -35,11 +37,11 @@ spring:
       client:
         registration:
           github:
-            client-id: 92e60583653691536dee
-            client-secret: 8ed81b7b451039f19d521bde31fe4720c301144c
+            client-id: ${client-id}
+            client-secret: ${client-secret}
 
 myBlog:
-  password: githubpassword
+  password: ${githubpassword}
 
 logging:
   level:
