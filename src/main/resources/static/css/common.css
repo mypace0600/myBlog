@@ -104,7 +104,6 @@ main{
     grid-row: 3/4;
     grid-column: 4/5;
     margin-bottom: 30vh;
-    background-color: var(--background2);
     color: white;
     opacity: 50%;    
 }
@@ -258,4 +257,12 @@ main{
      
       }
       
-  
+.round-btn{
+    border-radius: 15px 15px 15px 15px;
+    background-color :var(--background2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:10px;
+    padding:5px;
+}

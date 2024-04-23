@@ -2,26 +2,15 @@ package com.project.myBlog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import javax.xml.transform.Result;
-import java.time.LocalDateTime;
+import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@EnableJpaAuditing
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
 @Table(name = "tb_post")
-public class Post {
+public class Post extends BaseEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,13 +31,6 @@ public class Post {
 
     private int count;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updateAt;
-
     @JsonIgnoreProperties({"post"})
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id desc ")
@@ -60,8 +42,7 @@ public class Post {
     private List<Comment> commentList;
 
     @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy="post",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="post",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<PostTag> postTagList = new ArrayList<>();
-
 
 }

@@ -8,11 +8,13 @@ import com.project.myBlog.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -23,10 +25,6 @@ public class TagService {
     private final TagRepository tagRepository;
     private final PostTagRepository postTagRepository;
 
-    public boolean duplicatedTagNameCheck(String tagName){
-        Optional<Tag> tag = tagRepository.findByTagName(tagName);
-        return tag.isPresent();
-    }
    public void save(Post savedPost, String tagString){
        String[] tagArr = tagString.split("#");
        for(String t : tagArr){
@@ -44,4 +42,18 @@ public class TagService {
            postTagRepository.save(tempPostTag);
        }
    }
+
+    public void edit(Post savedPost, String tagString) {
+        postTagRepository.deleteAllByPostId(savedPost.getId());
+        save(savedPost, tagString);
+    }
+
+    public List<Tag> findAll() {
+        Pageable topFive = PageRequest.of(0, 5);
+       return tagRepository.findAllOrderByPostCount(topFive);
+    }
+
+    public Tag findById(int id) {
+       return tagRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
 }

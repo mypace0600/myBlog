@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://thymeleaf.org">
 <div class="zoom" th:fragment="zoomFragment">
-
-    <!--        <a href="/tag/list">show tags</a>-->
-    <div th:block th:each="tag : ${tags}">
-
-<!--        <a href="/post/tag/+${tag.id}">-->
-        <a th:href="@{/post/tag/{id}(id = ${tag.id})}">
-            <span th:text="${tag.tagName}"></span>
+    <th:block th:each="tag, status: ${tagList}">
+        <a th:href="'/post/tag/'+${tag.id}">
+            <div class="round-btn">
+                <div>[[${tag.tagName}]]</div>
+                <div>[[${tag.postTagList.size()}]]</div>
+            </div>
         </a>
-            <!-- <h1>내용 미리보기</h1>
-            <h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1><h1>내용 미리보기</h1> -->
-    </div>
+    </th:block>
+    <a href="/tags">
+        <div class="round-btn">
+            <div>태그 더보기</div>
+        </div>
+    </a>
 </div>
 </html>

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Table(name = "tb_image")
-public class Image {
+public class Image extends BaseEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

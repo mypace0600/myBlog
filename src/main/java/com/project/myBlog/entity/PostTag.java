@@ -1,8 +1,6 @@
 package com.project.myBlog.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +23,3 @@ public class PostTag {
     @JoinColumn(name="tagId")
     private Tag tag;
 }
-//쿼리메서드 JPA

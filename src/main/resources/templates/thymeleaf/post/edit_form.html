@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}"
+>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/post.js}"></script>
+    <script>
+      $('.summernote').summernote({
+        tabsize: 2,
+        height: 300
+      });
+    </script>
+</th:block>
+
+<main layout:fragment="content">
+
+    <div class="container">
+        <form>
+            <input type="hidden" id="id" name="id" th:value="${post.id}"/>
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" placeholder="Enter title" id="title" th:value="${post.title}">
+            </div>
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea class="form-control summernote" rows="5" id="content" th:text=${post.title}></textarea>
+            </div>
+            <div class="form-group">
+                <label for="tagString">태그</label>
+                <input type="text" class="form-control" id="tagString" name="tagString" placeholder="#태그입력 #띄어쓰기로 #구분됩니다." th:value="${post.tagString}">
+            </div>
+            <label for="hiddenStat">비밀글 설정</label>
+            <input type="checkbox" id="hiddenStat" name="hiddenStat" th:value="${post.hidden}"/>
+        </form>
+        <button id="btn-edit" class="btn btn-primary">수정 완료</button>
+        <button class="btn btn-danger"><a th:href="'/post/'+${post.id}">취소</a></button>
+    </div>
+</main>
+</html>
