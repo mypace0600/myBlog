@@ -2,8 +2,6 @@ server:
   port: 8080
 
 spring:
-  config:
-    import: github-keys.properties
   thymeleaf:
     cache: false
     check-template-location: false
@@ -21,7 +19,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/blog
     username: postgres
-    password: postgres
+    password: sa
 
   jpa:
     show-sql: true
@@ -29,20 +27,11 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: ${client-id}
-            client-secret: ${client-secret}
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
 
-myBlog:
-  password: ${githubpassword}
-
-logging:
-  level:
-    root: debug

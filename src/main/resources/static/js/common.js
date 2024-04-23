@@ -10,3 +10,8 @@ for (let i = 1; i < Lines; i++) {
     line.style.width = '1px';
     container.appendChild(line);
 }
+
+
+function navClick() {
+
+}
