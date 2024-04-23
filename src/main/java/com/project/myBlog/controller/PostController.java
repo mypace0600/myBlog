@@ -94,10 +94,10 @@ public class PostController {
 
     @GetMapping("/post/tag/{id}")
     public String postTagList(@PathVariable int id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
-        //Page<PostTag> postTagList = postTagService.postTagsByTagId(id, pageable);
-        List<PostTag> postTagListTest = postTagService.findAllByTagId(id);
-        log.debug("@@@@@@@@@@@ postTagListTest :{}",postTagListTest.toString());
-        //model.addAttribute("postTagList",postTagList);
+        Page<PostTag> postTagList = postTagService.postTagsByTagId(id, pageable);
+//        List<PostTag> postTagListTest = postTagService.findAllByTagId(id);
+//        log.debug("@@@@@@@@@@@ postTagListTest :{}",postTagListTest.toString());
+        model.addAttribute("postTagList",postTagList);
         Tag tag = tagService.findById(id);
         model.addAttribute("tag",tag);
         return "post/post_list";
