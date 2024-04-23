@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  config:
+    import: github-keys.properties
   thymeleaf:
     cache: false
     check-template-location: false
@@ -27,11 +29,20 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  servlet:
-    multipart:
-      max-file-size: 20MB
-      max-request-size: 100MB
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${client-id}
+            client-secret: ${client-secret}
 
+myBlog:
+  password: ${githubpassword}
+
+logging:
+  level:
+    root: debug
