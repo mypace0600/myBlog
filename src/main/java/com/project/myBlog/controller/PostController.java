@@ -12,7 +12,6 @@ import com.project.myBlog.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +95,8 @@ public class PostController {
     @GetMapping("/post/tag/{id}")
     public String postTagList(@PathVariable int id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
         Page<PostTag> postTagList = postTagService.postTagsByTagId(id, pageable);
+//        List<PostTag> postTagListTest = postTagService.findAllByTagId(id);
+//        log.debug("@@@@@@@@@@@ postTagListTest :{}",postTagListTest.toString());
         model.addAttribute("postTagList",postTagList);
         Tag tag = tagService.findById(id);
         model.addAttribute("tag",tag);

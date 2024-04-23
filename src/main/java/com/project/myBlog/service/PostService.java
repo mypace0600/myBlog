@@ -58,6 +58,7 @@ public class PostService {
         postDto.setTitle(post.getTitle());
         postDto.setContent(post.getContent());
         postDto.setHidden(post.isHidden());
+        postDto.setCommentList(post.getCommentList());
 
         if (post.isHidden() && principal.isPresent()
                 && (post.getUser().getId().equals(principal.get().getUser().getId())
@@ -126,5 +127,4 @@ public class PostService {
 //        postTagRepository.deleteAllByPostId(id);
         postRepository.deleteById(id);
     }
-
 }

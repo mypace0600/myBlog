@@ -1,6 +1,9 @@
 package com.project.myBlog.config;
 
+import com.project.myBlog.config.oauth.CustomOAuth2AuthenticationSuccessHandler;
+import com.project.myBlog.config.oauth.CustomOAuth2UserService;
 import com.project.myBlog.entity.RoleType;
+import com.project.myBlog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +14,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +29,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     private final PrincipalDetailService principalDetailService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
@@ -40,16 +48,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf->csrf.disable())
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/","/auth/**","/js/**","/css/**","/img/**","/thymeleaf/**").permitAll()
+                        .requestMatchers("/", "/auth/**", "/js/**", "/css/**", "/img/**", "/thymeleaf/**").permitAll()
                         .requestMatchers("/post/write").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(login->login
+                .formLogin(login -> login
                         .loginPage("/auth/loginForm")
                         .loginProcessingUrl("/auth/loginProc")
                         .usernameParameter("email")
@@ -57,11 +65,16 @@ public class SecurityConfig {
                         .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
                         .permitAll()
                 )
-                .logout(logout->logout
+                .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                         .logoutSuccessUrl("/")
-                );
-
+                )
+                .oauth2Login(oauth2->oauth2
+                        .authorizationEndpoint(authorization -> authorization
+                                .baseUri("/login"))
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService))
+                        .successHandler(new CustomOAuth2AuthenticationSuccessHandler()));
         return http.build();
     }
 }

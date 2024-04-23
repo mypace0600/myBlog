@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class PostTagService {
@@ -16,5 +17,10 @@ public class PostTagService {
     private final PostTagRepository postTagRepository;
     public Page<PostTag> postTagsByTagId(int id, Pageable pageable) {
         return postTagRepository.postTagsByTagId(id, pageable);
+    }
+
+
+    public List<PostTag> findAllByTagId(int id) {
+        return postTagRepository.findAllByTagId(id);
     }
 }
