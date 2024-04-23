@@ -36,6 +36,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public User loginByGithubUserSave(String githubEmail, String githubPassword) throws BadRequestException {
         Optional<User> checkEmailUser = userRepository.findByEmail(githubEmail);
         log.debug("@@@@@@@@@@@@@@ checkEmail : {}",githubEmail);

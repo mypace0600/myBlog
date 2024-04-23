@@ -1,6 +1,9 @@
 package com.project.myBlog.config;
 
+import com.project.myBlog.config.oauth.CustomOAuth2AuthenticationSuccessHandler;
+import com.project.myBlog.config.oauth.CustomOAuth2UserService;
 import com.project.myBlog.entity.RoleType;
+import com.project.myBlog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,17 +13,14 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
-import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +29,7 @@ import java.util.Set;
 public class SecurityConfig {
 
     private final PrincipalDetailService principalDetailService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
@@ -54,7 +55,6 @@ public class SecurityConfig {
                         .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.toString())
                         .requestMatchers("/post/**").permitAll()
-                        .requestMatchers("/oauth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -68,8 +68,13 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                         .logoutSuccessUrl("/")
-                );
-
+                )
+                .oauth2Login(oauth2->oauth2
+                        .authorizationEndpoint(authorization -> authorization
+                                .baseUri("/login"))
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService))
+                        .successHandler(new CustomOAuth2AuthenticationSuccessHandler()));
         return http.build();
     }
 }
