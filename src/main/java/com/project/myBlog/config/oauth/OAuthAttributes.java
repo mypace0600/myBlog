@@ -43,13 +43,13 @@ public class OAuthAttributes {
     }
 
     public User toEntity(String registrationId, @Value("${myBlog.password}") String githubPassword){
-        return User.builder()
-                .email(email)
-                .password(passwordEncoder.encode(githubPassword))
-                .roleType(RoleType.USER)
-                .createdAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
-                .oauth(registrationId)
-                .build();
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(githubPassword));
+        user.setRoleType(RoleType.OAUTH);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdateAt(LocalDateTime.now());
+        user.setOauth(registrationId);
+        return user;
     }
 }

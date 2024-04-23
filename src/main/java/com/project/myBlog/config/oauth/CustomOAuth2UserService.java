@@ -2,11 +2,9 @@ package com.project.myBlog.config.oauth;
 
 import com.project.myBlog.entity.User;
 import com.project.myBlog.repository.UserRepository;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -43,7 +41,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     }
 
     private User saveOrUpdate(OAuthAttributes attributes,String registrationId) {
-        User user = userRepository.findByEmail(attributes.getEmail())
+        String email = attributes.getEmail();
+        if(null == email){
+            email = attributes.getAttributes().get("name")+"@tempgithub.com";
+        }
+
+        User user = userRepository.findByEmail(email)
                 .map(entity -> entity.update(registrationId))
                 .orElse(attributes.toEntity(registrationId, githubPassword));
 
