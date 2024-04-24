@@ -3,11 +3,8 @@ package com.project.myBlog.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_user")
-public class User {
+public class User  extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +31,6 @@ public class User {
 
     private String oauth;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updateAt;
 
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -54,8 +45,6 @@ public class User {
                 .email(user.getEmail())
                 .password(passwordEncoder.encode(user.getPassword()))
                 .roleType(RoleType.ADMIN)
-                .createdAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
                 .build();
     }
 
@@ -67,7 +56,7 @@ public class User {
 
     public User update(String oauthProvideCompany){
         this.oauth = oauthProvideCompany;
-        this.updateAt = LocalDateTime.now();
+        this.roleType = RoleType.OAUTH;
         return this;
     }
 

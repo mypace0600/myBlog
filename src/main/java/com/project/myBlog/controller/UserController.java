@@ -2,6 +2,7 @@ package com.project.myBlog.controller;
 
 import com.project.myBlog.entity.User;
 import com.project.myBlog.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
@@ -50,64 +51,13 @@ public class UserController {
         return "redirect:/";
     }
 
-//    @GetMapping("/oauth/redirect")
-//    public String githubLogin(@RequestParam String code){
-//        RestTemplate restTemplate = new RestTemplate();
-//        log.debug("@@@@@@@@@@@@@@@ code :{}" ,code);
-//        ResponseEntity<OAuthDto> response = restTemplate.exchange("https://github.com/login/oauth/access_token",
-//                HttpMethod.POST,
-//                getAccessToken(code),
-//                OAuthDto.class);
-//
-//        String accessToken = response.getBody().getAccessToken();
-//        log.debug("@@@@@@@@@@@@@@@ accessToken :{}" ,accessToken);
-//        return "redirect:/oauth/githubLogin/success?access_token="+accessToken;
-//    }
-//
-//    private HttpEntity<MultiValueMap<String,String>> getAccessToken(String code){
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//        params.add("client_id",clientId);
-//        params.add("client_secret",clientSecret);
-//        params.add("code",code);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        return new HttpEntity<>(params,headers);
-//    }
-//
-//    @GetMapping("/oauth/githubLogin/success")
-//    public String githubLoginSuccess(@RequestParam String access_token, HttpServletRequest request) throws BadRequestException {
-//        log.debug("@@@@@@@@@@@@@@@ access_token :{}" ,access_token);
-//        RestTemplate restTemplate = new RestTemplate();
-//        ResponseEntity<GithubProfileDto> response = restTemplate.exchange("https://api.github.com/user"
-//                , HttpMethod.GET
-//                , getUserInfo(access_token)
-//                , GithubProfileDto.class);
-//
-//        GithubProfileDto githubUser = response.getBody();
-//        String email = githubUser.getEmail();
-//        if(null==email){
-//            email = githubUser.getName()+"@github.com";
-//        }
-//        log.debug("@@@@@@@@@@@@@@@ email :{}", email);
-//        User savedUser = userService.loginByGithubUserSave(email,githubPassword);
-//        log.debug("@@@@@@@@@@@@@@@ savedUser :{}", savedUser.getEmail());
-//        log.debug("@@@@@@@@@@@@@@@ githubPassword :{}", githubPassword);
-//
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        savedUser.getEmail(),
-//                        githubPassword
-//                )
-//        );
-//        log.debug("@@@@@@@@@@@@@@ authentication.getName() :{}", authentication.getName());
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return "redirect:"+request.getHeader("Referer");
-//    }
-//
-//    private HttpEntity<MultiValueMap<String,String>> getUserInfo(String access_token) {
-//        HttpHeaders requestHeaders = new HttpHeaders();
-//        requestHeaders.add("Authorization", "token " + access_token);
-//        return new HttpEntity<>(requestHeaders);
-//    }
-
+    @GetMapping("/oauth/login")
+    public String OAuthLogin(HttpServletRequest request){
+        String uri = request.getHeader("Referer");
+        log.debug("@@@@@@@@@@@@@@@@@@@@ uri :{}",uri);
+        if (uri != null && !uri.contains("/login")) {
+            request.getSession().setAttribute("prevPage", uri);
+        }
+        return "redirect:/login/github";
+    }
 }

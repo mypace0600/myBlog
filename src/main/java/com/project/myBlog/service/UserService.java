@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -53,5 +54,14 @@ public class UserService {
         } else {
             return checkEmailUser.get();
         }
+    }
+
+    public Optional<User> findOauthUser(DefaultOAuth2User oauthPrincipal) {
+
+        String email = (String) oauthPrincipal.getAttributes().get("email");
+        if(null == email){
+            email = oauthPrincipal.getAttributes().get("name")+"@tempgithub.com";
+        }
+        return userRepository.findByEmail(email);
     }
 }

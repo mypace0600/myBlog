@@ -10,9 +10,10 @@
     --font3:#cac3c3;
     --shadow:rgba(0.6, 0.6, 0.6, 0.6); /* 그림자 */
 }
-.nav_btn{
+/* 데스크톱 스타일 */
+.nav-btn{
 }
-.nav_btn span{
+.nav-btn span{
 }
 /* 특정 URL에 대한 스타일 */
 .special_nav_btn  {
@@ -24,6 +25,7 @@
 .special_nav_btn  span {
     border-bottom: solid var(--font1) 0.1em;
 }
+
 *,
 *::after,
 *::before{
@@ -35,7 +37,6 @@
     box-sizing: border-box;
     list-style: none;
     background-repeat: no-repeat;
-    letter-spacing: 1px;
     grid-gap:0;
 }
 a:link {
@@ -100,12 +101,14 @@ main{
 }
 
 .foot{
-    grid-column: 3/4;
+    grid-area: footer;
+    grid-column: 4/5;
     color: var(--font1);
     height: 150px;
     
 }
 .footer{
+    grid-column: 4/5;
     background: var(--background1);
     user-select: none;
 }
@@ -113,7 +116,6 @@ main{
     grid-row: 3/4;
     grid-column: 4/5;
     margin-bottom: 30vh;
-    background-color: var(--background2);
     color: white;
     opacity: 50%;    
 }
@@ -267,4 +269,12 @@ main{
      
       }
       
-  
+.round-btn{
+    border-radius: 15px 15px 15px 15px;
+    background-color :var(--background2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:10px;
+    padding:5px;
+}

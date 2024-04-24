@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-
 <nav th:fragment="navFragment">
+    <button onclick="location.href='/'" class="nav-btn" id="nav_"><span>Home</span></button>
+    <button onclick="location.href='/post'" class="nav-btn" id="nav_post"><span>Post</span></button>
+    <button onclick="location.href='/port'" class="nav-btn" id="nav_port"><span>Portfolio</span></button>
 
-
-    <button class="nav_btn" onclick="location.href='/'"><span>Home</span></button>
-    <button class="nav_btn" onclick="location.href='/post'"><span>Post</span></button>
-    <button class="nav_btn" onclick="location.href='#'"><span>Portfolio</span></button>
 
     <!-- 로그인 되어 있지 않은 경우 -->
-    <button sec:authorize="isAnonymous()" class="boo" onclick="location.href='/auth/loginForm'"><span class="material-symbols-outlined">login</span></button>
+    <button sec:authorize="isAnonymous()" class="boo" onclick="location.href='/auth/loginForm'"><span
+            class="material-symbols-outlined">login</span></button>
     <!-- 로그인 되어 있는 경우 -->
-    <button sec:authorize="isAuthenticated()" class="boo" onclick="location.href='/auth/logout'"><span class="material-symbols-inlined">logout</span></button>
+    <button sec:authorize="isAuthenticated()" class="boo" onclick="location.href='/auth/logout'"><span
+            class="material-symbols-inlined">logout</span></button>
 
 </nav>

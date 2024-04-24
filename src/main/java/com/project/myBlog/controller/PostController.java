@@ -21,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -29,6 +28,7 @@ import java.util.Optional;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/post")
 public class PostController {
 
     private final PostService postService;
@@ -36,18 +36,22 @@ public class PostController {
     private final PostTagService postTagService;
 
 
-    @GetMapping("/post")
+
+    @GetMapping()
     public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
+        model.addAttribute("isActive", "post");
         return "post/post";
     }
 
-    @GetMapping("/post/write")
-    public String postWriteForm(){
+    @GetMapping("/write")
+    public String postWriteForm(Model model){
+        model.addAttribute("isActive", "post");
+
         return "post/write_form";
     }
 
-    @PostMapping("/post/write")
+    @PostMapping("/write")
     @ResponseBody
     public ResponseDto<Integer> postWrite(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal){
         Post savedPost = postService.save(postDto,principal.getUser());
@@ -55,22 +59,25 @@ public class PostController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 
-    @GetMapping("/post/{id}")
+    @GetMapping("/{id}")
     public String findById(@PathVariable int id, Model model, @AuthenticationPrincipal Optional<PrincipalDetail> principal){
         PostDto postDto = postService.findByIdAndUser(id,principal);
         postService.updateViewCount(id);
         model.addAttribute("post",postDto);
+        model.addAttribute("isActive", "post");
+
         return "post/detail";
     }
 
-    @GetMapping("/post/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String postEditForm(@PathVariable int id, Model model) {
         PostDto post = postService.findById(id);
         model.addAttribute("post",post);
+        model.addAttribute("isActive", "post");
         return "post/edit_form";
     }
 
-    @PostMapping("/post/edit")
+    @PostMapping("/edit")
     @ResponseBody
     public ResponseDto<Integer> postEdit(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal) throws Exception {
         Post savedPost = postService.edit(postDto,principal.getUser());
@@ -79,20 +86,20 @@ public class PostController {
     }
 
     @Deprecated
-    @PostMapping("/post/delete")
+    @PostMapping("/delete")
     @ResponseBody
     public ResponseDto<Integer> postDelete(@RequestBody Post post){
         postService.deleteById(post.getId());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
-    @GetMapping("/post/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deletePost(@PathVariable Integer id){
         postService.deleteById(id);
         return "redirect:/";
     }
 
-    @GetMapping("/post/tag/{id}")
+    @GetMapping("/tag/{id}")
     public String postTagList(@PathVariable int id, Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws Exception{
         Page<PostTag> postTagList = postTagService.postTagsByTagId(id, pageable);
 //        List<PostTag> postTagListTest = postTagService.findAllByTagId(id);
@@ -100,6 +107,8 @@ public class PostController {
         model.addAttribute("postTagList",postTagList);
         Tag tag = tagService.findById(id);
         model.addAttribute("tag",tag);
+        model.addAttribute("isActive", "post");
+
         return "post/post_list";
     }
 }
