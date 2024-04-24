@@ -3,9 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <nav th:fragment="navFragment">
-    <button class="nav_btn" onclick="location.href='/'"><span>Home</span></button>
-    <button class="nav_btn" onclick="location.href='/post'"><span>Post</span></button>
-    <button class="nav_btn" onclick="location.href='#'"><span>Portfolio</span></button>
+
+    <button class="nav_btn" onclick="location.href='/'" th:classappend="${isActive == 'index'} ? 'active' : ''"><span>Home</span></button>
+    <button class="nav_btn" onclick="location.href='/post'" th:classappend="${isActive == 'post'} ? 'active' : ''"><span>Post</span></button>
+    <button class="nav_btn" onclick="location.href='/#'" th:classappend="${isActive == 'portfolio'} ? 'active' : ''"><span>Portfolio</span></button>
 
 
     <!-- 로그인 되어 있지 않은 경우 -->

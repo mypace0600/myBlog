@@ -11,23 +11,16 @@
     --shadow:rgba(0.6, 0.6, 0.6, 0.6); /* 그림자 */
 }
 /* 데스크톱 스타일 */
-
-.nav_btn{
-}
-.nav_btn span{
-}
-/* 특정 URL에 대한 스타일 */
-.special_nav_btn  {
+nav button.active {
     margin-top: 10px;
     color: var(--font1);
     border-radius: 2px;
     background: var(--background2);
 }
-.special_nav_btn  span {
+nav button span.active {
     border-bottom: solid var(--font1) 0.1em;
+
 }
-
-
 
 *,
 *::after,
