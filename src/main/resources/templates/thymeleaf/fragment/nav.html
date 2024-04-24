@@ -3,9 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <nav th:fragment="navFragment">
-    <button class="nav_btn" onclick="location.href='/'"><span>Home</span></button>
-    <button class="nav_btn" onclick="location.href='/post'"><span>Post</span></button>
-    <button class="nav_btn" onclick="location.href='#'"><span>Portfolio</span></button>
+    <a href="/"><button class="nav-btn" id="nav_"><span>Home</span></button></a>
+    <a href="/post"><button class="nav-btn" id="nav_post"><span>Post</span></button></a>
+    <a href="/port"><button class="nav-btn" id="nav_port"><span>Portfolio</span></button></a>
 
 
     <!-- 로그인 되어 있지 않은 경우 -->

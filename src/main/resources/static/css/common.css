@@ -12,9 +12,9 @@
 }
 /* 데스크톱 스타일 */
 
-.nav_btn{
+.nav-btn{
 }
-.nav_btn span{
+.nav-btn span{
 }
 /* 특정 URL에 대한 스타일 */
 .special_nav_btn  {
@@ -84,7 +84,10 @@ header{ grid-area: header;
 }
 nav{
     grid-column: 3/4;
-    grid-row: 2/3; 
+    grid-row: 2/3;
+    display:flex;
+    justify-content:start;
+    align-items:center;
     color: var(--font1);
     max-height: 10vh; 
     max-width: 100%; 
@@ -160,6 +163,31 @@ font-size: larger;
 
 }
 nav button:hover {
+    margin-top: 15px;
+    border-radius: 2px;
+    background:var(--background2);
+    animation: line 0.3s;
+}
+
+
+nav a{
+    color: var(--font1);
+    transition: all 0.3s;
+    height: 100%;
+    width: 10vw;
+    text-align: center;
+}
+
+
+nav a:not(:last-child){
+    float: left;
+}
+nav a span {
+display: inline;
+font-size: larger;
+
+}
+nav a:hover {
     margin-top: 15px;
     border-radius: 2px;
     background:var(--background2);
