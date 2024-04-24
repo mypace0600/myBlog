@@ -12,8 +12,23 @@
 }
 /* 데스크톱 스타일 */
 
+.nav_btn{
+}
+.nav_btn span{
+}
+/* 특정 URL에 대한 스타일 */
+.special_nav_btn  {
+    margin-top: 10px;
+    color: var(--font1);
+    border-radius: 2px;
+    background: var(--background2);
+}
+.special_nav_btn  span {
+    border-bottom: solid var(--font1) 0.1em;
+}
 
-  
+
+
 *,
 *::after,
 *::before{
@@ -25,7 +40,6 @@
     box-sizing: border-box;
     list-style: none;
     background-repeat: no-repeat;
-    letter-spacing: 1px;
     grid-gap:0;
 }
 a:link {
@@ -90,12 +104,14 @@ main{
 }
 
 .foot{
-    grid-column: 3/4;
+    grid-area: footer;
+    grid-column: 4/5;
     color: var(--font1);
     height: 150px;
     
 }
 .footer{
+    grid-column: 4/5;
     background: var(--background1);
     user-select: none;
 }
