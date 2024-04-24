@@ -1,4 +1,4 @@
-package com.project.myBlog.repository;
+package com.project.myBlog.repository.custom;
 
 import com.project.myBlog.entity.PostTag;
 import org.springframework.data.domain.Page;

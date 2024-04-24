@@ -1,4 +1,4 @@
-package com.project.myBlog.common;
+package com.project.myBlog.common.advice;
 
 import com.project.myBlog.entity.Tag;
 import com.project.myBlog.service.TagService;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @ControllerAdvice
 @RequiredArgsConstructor
-public class GlobalControllerAdvice {
+public class TagControllerAdvice {
 
     private final TagService tagService;
 

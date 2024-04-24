@@ -1,4 +1,4 @@
-package com.project.myBlog.entity;
+package com.project.myBlog.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

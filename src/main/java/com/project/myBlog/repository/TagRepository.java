@@ -1,6 +1,7 @@
 package com.project.myBlog.repository;
 
 import com.project.myBlog.entity.Tag;
+import com.project.myBlog.repository.custom.TagRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

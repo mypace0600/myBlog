@@ -1,6 +1,6 @@
 package com.project.myBlog.config.oauth;
 
-import com.project.myBlog.entity.RoleType;
+import com.project.myBlog.entity.enums.RoleType;
 import com.project.myBlog.entity.User;
 import lombok.Builder;
 import lombok.Getter;

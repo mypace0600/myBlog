@@ -1,6 +1,7 @@
 package com.project.myBlog.repository;
 
 import com.project.myBlog.entity.PostTag;
+import com.project.myBlog.repository.custom.PostTagRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
