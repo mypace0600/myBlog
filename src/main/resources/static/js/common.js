@@ -22,7 +22,6 @@ let common = {
     urlCheck: function (){
         let url = window.location.pathname;
         let id = "nav_"+url.replace("/","").split("/")[0];
-        console.log(id);
         let currentNavBtn = document.getElementById(id);
         currentNavBtn.classList.add("special_nav_btn");
     }
