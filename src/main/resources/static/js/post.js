@@ -13,24 +13,28 @@ let post = {
             this.commentSave();
         });
         $(".btn-edit-comment").on("click",(e)=>{
-            this.commentEdit(e);
+            this.aboutAllCommentBtn(e);
         });
-        $(".btn-delete-comment").on("click",()=>{
-            this.commentDelete();
+        $(".btn-edit-save-comment").on("click",(e)=>{
+            this.aboutAllCommentBtn(e);
+        });
+        $(".btn-edit-cancel-comment").on("click",(e)=>{
+            this.aboutAllCommentBtn(e);
+        });
+        $(".btn-delete-comment").on("click",(e)=>{
+            this.aboutAllCommentBtn(e);
         });
     },
 
     postSave : function() {
         let checkBox = document.getElementById("hiddenStat");
         let isHiddenChecked = checkBox.checked;
-        console.log("isHiddenChecked : "+isHiddenChecked);
         let data = {
             title: $("#title").val(),
             content: $("#content").val(),
             tagString: $("#tagString").val(),
             hidden: isHiddenChecked
         };
-        console.log("data : "+JSON.stringify(data));
         $.ajax({
             type:"POST",
             url:"/post/write",
@@ -62,7 +66,6 @@ let post = {
             tagString: $("#tagString").val(),
             hidden:hidden
         };
-        console.log(data.hidden);
 
         $.ajax({
             type:"post",
@@ -96,7 +99,6 @@ let post = {
             hidden:hidden
         };
 
-        console.log(data.hidden);
         $.ajax({
             type:"post",
             url:"/post/delete",
@@ -135,20 +137,84 @@ let post = {
                 alert("댓글 작성 실패");
             }
         }).fail(function (error){
-            alert("로그인이 필요합니다.");
+            alert(error);
         });
     },
 
-    commentEdit : function(e) {
+    aboutAllCommentBtn : function(e){
         let parentRow = $(e.target).closest(".comment-row");
-        console.log("parentRow :", parentRow);
         let commentId = parentRow.children("input[type='hidden']").val();
-        console.log("Editing comment with ID:", commentId);
-        let data = {
-            commentId:  commentId,
-            commentContent: $("#comment-content").val()
+        let originBox = document.getElementById("originBox"+commentId);
+        let editBox = document.getElementById("editBox"+commentId);
+
+        let className = e.target.classList[0];
+        if(className === "btn-edit-comment"){
+            originBox.classList.add("non-active");
+            editBox.classList.remove("non-active");
+        } else if(className === "btn-edit-save-comment"){
+            this.commentEdit(commentId);
+            originBox.classList.remove("non-active");
+            editBox.classList.add("non-active");
+        } else if(className === "btn-edit-cancel-comment"){
+            originBox.classList.remove("non-active");
+            editBox.classList.add("non-active");
+        } else if(className === "btn-delete-comment"){
+            this.commentDelete(commentId);
         }
+
+    },
+
+    commentEdit : function(commentId){
+        let data = {
+            postId:  $("#id").val(),
+            commentContent: document.getElementById("saved-comment"+commentId).value,
+            commentId: commentId
+        }
+
+        $.ajax({
+            type:"put",
+            url:"/comment",
+            data:JSON.stringify(data), // javascript object인 data를 json 형식으로 변환해서 java가 인식할 수 있도록 준비함
+            contentType:"application/json; charset=utf-8", // http body 데이터가 어떤 타입인지(MIME)
+            dataType:"json" // 요청에 대한 응답이 왔을 때 기본적으로 문자열(생긴게 json이라면)=> javascript object로 변경해줌
+        }).done(function (resp){
+            if(resp.status===200){
+                alert("댓글 수정 완료");
+                location.href = "/post/" + data.postId;
+            } else {
+                alert("댓글 수정 실패");
+            }
+        }).fail(function (error){
+            alert(error);
+        });
+    },
+
+    commentDelete : function(commentId){
+        let data = {
+            postId:  $("#id").val(),
+            commentId: commentId
+        }
+
+        $.ajax({
+            type:"delete",
+            url:"/comment",
+            data:JSON.stringify(data), // javascript object인 data를 json 형식으로 변환해서 java가 인식할 수 있도록 준비함
+            contentType:"application/json; charset=utf-8", // http body 데이터가 어떤 타입인지(MIME)
+            dataType:"json" // 요청에 대한 응답이 왔을 때 기본적으로 문자열(생긴게 json이라면)=> javascript object로 변경해줌
+        }).done(function (resp){
+            if(resp.status===200){
+                alert("댓글 삭제 완료");
+                location.href = "/post/" + data.postId;
+            } else {
+                alert("댓글 삭제 실패");
+            }
+        }).fail(function (error){
+            alert(error);
+        });
     }
+
+
+
 
 }
 

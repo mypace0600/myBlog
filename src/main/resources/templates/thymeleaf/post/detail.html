@@ -44,14 +44,23 @@
         <!-- 댓글 표시 -->
         <div>
             <th:block th:each="comment, status: ${post.commentList}">
-                    <div class="row comment-row">
-                        <input type="hidden" class="comment-id" th:value="${comment.id}"/>
-                        <div>[[${comment.user.email}]]</div>
-                        <div>[[${comment.content}]]</div>
-                        <div>[[${comment.createdAt}]]</div>
-                        <button type="button" class="btn-edit-comment">수정</button>
-                        <button type="button" class="btn-delete-comment">삭제</button>
+                <div class="row comment-row">
+                    <input type="hidden" class="comment-id" th:value="${comment.id}"/>
+                    <div th:id="'originBox'+${comment.id}" class="">
+                        <div class="comment-user">[[${comment.user.email}]]</div>
+                        <div class="comment-content">[[${comment.content}]]</div>
+                        <div class="comment-createdAt">[[${comment.createdAt}]]</div>
+                        <th:block th:if="${comment.user.email == #authentication.name}">
+                            <button type="button" class="btn-edit-comment">수정</button>
+                            <button type="button" class="btn-delete-comment">삭제</button>
+                        </th:block>
                     </div>
+                    <div th:id="'editBox'+${comment.id}" class="non-active">
+                        <input type="text" th:id="'saved-comment'+${comment.id}" name="saved-comment" th:value="${comment.content}"/>
+                        <button type="button" class="btn-edit-save-comment">저장</button>
+                        <button type="button" class="btn-edit-cancel-comment">취소</button>
+                    </div>
+                </div>
             </th:block>
         </div>
     </div>

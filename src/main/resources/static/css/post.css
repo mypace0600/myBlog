@@ -132,6 +132,9 @@ main{
 
 }
 
+.non-active{
+  display: none;
+}
 
 
 
