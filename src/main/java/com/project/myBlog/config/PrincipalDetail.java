@@ -2,21 +2,49 @@ package com.project.myBlog.config;
 
 import com.project.myBlog.entity.User;
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 @Getter
-public class PrincipalDetail  implements UserDetails {
+public class PrincipalDetail  implements UserDetails, OAuth2User {
 
 
     private User user;
+    private List<GrantedAuthority> authorities;
+    private Map<String, Object> oauthUserAttributes;
 
-    public PrincipalDetail(User user) {
+    public PrincipalDetail(User user, List<GrantedAuthority> authorities, Map<String, Object> oauthUserAttributes) {
         this.user = user;
+        this.authorities = authorities;
+        this.oauthUserAttributes = oauthUserAttributes;
     }
+
+    public static PrincipalDetail create(User user, Map<String, Object> oauthUserAttributes){
+        return new PrincipalDetail(user,List.of(()->"ROLE_USER"), oauthUserAttributes);
+    }
+
+    public static PrincipalDetail create(User user){
+        return new PrincipalDetail(user,List.of(()->"ROLE_USER"), new HashMap<>());
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return Collections.unmodifiableMap(oauthUserAttributes);
+    }
+
+    @Override
+    @Nullable
+    @SuppressWarnings("unchecked")
+    public <A> A getAttribute(String name) {
+        return (A) oauthUserAttributes.get(name);
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collectors = new ArrayList<>();
@@ -52,5 +80,10 @@ public class PrincipalDetail  implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return user.getEmail();
     }
 }

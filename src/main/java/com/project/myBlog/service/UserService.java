@@ -1,6 +1,6 @@
 package com.project.myBlog.service;
 
-import com.project.myBlog.entity.RoleType;
+import com.project.myBlog.entity.enums.RoleType;
 import com.project.myBlog.entity.User;
 import com.project.myBlog.repository.UserRepository;
 import jakarta.transaction.Transactional;

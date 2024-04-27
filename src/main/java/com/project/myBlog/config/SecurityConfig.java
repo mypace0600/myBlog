@@ -2,7 +2,7 @@ package com.project.myBlog.config;
 
 import com.project.myBlog.config.oauth.CustomOAuth2AuthenticationSuccessHandler;
 import com.project.myBlog.config.oauth.CustomOAuth2UserService;
-import com.project.myBlog.entity.RoleType;
+import com.project.myBlog.entity.enums.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

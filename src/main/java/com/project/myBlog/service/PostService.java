@@ -5,7 +5,7 @@ import com.project.myBlog.config.PrincipalDetail;
 import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.entity.PostTag;
-import com.project.myBlog.entity.RoleType;
+import com.project.myBlog.entity.enums.RoleType;
 import com.project.myBlog.entity.User;
 import com.project.myBlog.repository.PostRepository;
 import com.project.myBlog.repository.PostTagRepository;

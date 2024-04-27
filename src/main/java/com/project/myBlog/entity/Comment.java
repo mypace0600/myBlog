@@ -2,11 +2,13 @@ package com.project.myBlog.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
 @Table(name = "tb_comment")
 public class Comment extends BaseEntity {
 
