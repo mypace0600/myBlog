@@ -6,6 +6,7 @@ import com.project.myBlog.dto.PostDto;
 import com.project.myBlog.entity.Post;
 import com.project.myBlog.entity.PostTag;
 import com.project.myBlog.entity.Tag;
+import com.project.myBlog.entity.enums.RoleType;
 import com.project.myBlog.service.PostService;
 import com.project.myBlog.service.PostTagService;
 import com.project.myBlog.service.TagService;
@@ -53,7 +54,10 @@ public class PostController {
 
     @PostMapping("/write")
     @ResponseBody
-    public ResponseDto<Integer> postWrite(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal){
+    public ResponseDto<Integer> postWrite(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal) throws Exception {
+        if(!principal.getUser().getRoleType().equals(RoleType.ADMIN.toString())){
+            throw new Exception("글쓰기 권한이 없습니다.");
+        }
         Post savedPost = postService.save(postDto,principal.getUser());
         tagService.save(savedPost, postDto.getTagString());
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);

@@ -46,7 +46,7 @@ public class OAuthAttributes {
         User user = new User();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(githubPassword));
-        user.setRoleType(RoleType.OAUTH);
+        user.setRoleType(RoleType.OAUTH.getKey());
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdateAt(LocalDateTime.now());
         user.setOauth(registrationId);
