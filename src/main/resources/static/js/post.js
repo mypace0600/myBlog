@@ -33,6 +33,7 @@ let post = {
             title: $("#title").val(),
             content: $("#content").val(),
             tagString: $("#tagString").val(),
+            uuid: $("#uuid").val(),
             hidden: isHiddenChecked
         };
         $.ajax({
@@ -212,10 +213,63 @@ let post = {
             alert(error);
         });
     }
-
-
-
-
 }
 
 post.init();
+
+
+// 배열을 문자열로 변환하여 UUID를 생성하는 함수
+function arrayToUUID(array) {
+    return (
+        array.slice(0, 4).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
+        array.slice(4, 6).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
+        array.slice(6, 8).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
+        array.slice(8, 10).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
+        array.slice(10, 16).map(byte => byte.toString(16).padStart(2, '0')).join('')
+    );
+}
+
+let uuidStr = (function() {
+    let array = new Uint8Array(16);
+    crypto.getRandomValues(array);
+    return arrayToUUID(array);
+})();
+
+$('.summernote').summernote({
+    tabsize: 2,
+    height: 300,
+    focus: true,
+    lang: "ko-KR",
+    placeholder: '최대 2048자까지 쓸 수 있습니다',
+    callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+        onImageUpload : function(files) {
+            uploadSummernoteImageFile(files[0],this);
+        },
+        onPaste: function (e) {
+            var clipboardData = e.originalEvent.clipboardData;
+            if (clipboardData && clipboardData.items && clipboardData.items.length) {
+                var item = clipboardData.items[0];
+                if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                    e.preventDefault();
+                }
+            }
+        }
+    }
+});
+
+function uploadSummernoteImageFile(file, editor) {
+    data = new FormData();
+    data.append("file", file);
+    data.append("uuid",uuidStr);
+    $.ajax({
+        data : data,
+        type : "POST",
+        url : "/img",
+        contentType : false,
+        processData : false,
+        success : function(data) {
+            //항상 업로드된 파일의 url이 있어야 한다.
+            $(editor).summernote('insertImage', data.url);
+        }
+    });
+}
