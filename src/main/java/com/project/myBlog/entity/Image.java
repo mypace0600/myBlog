@@ -17,8 +17,20 @@ public class Image extends BaseEntity  {
     @JoinColumn(name = "postId")
     private Post post;
 
-    @Column(name = "imgUrl", nullable = false)
-    private String imgUrl;
+    @Column(name = "file_name")
+    private String fileName;
 
+    @Column(name = "file_path")
+    private String filePath;
 
+    @Column(name = "temp_id") // 임시 식별자
+    private String tempId;
+
+    public static Image createImg(String fileRoot, String savedFileName,String uuid) {
+        Image image = new Image();
+        image.setFilePath(fileRoot);
+        image.setFileName(savedFileName);
+        image.setTempId(uuid);
+        return image;
+    }
 }
