@@ -110,13 +110,13 @@ public class PostService {
     public Post edit(PostDto postDto, User user) throws Exception {
         log.debug("@@@@@@@@@@@@@ user role :{}",user.getRoleType());
         if (user.getRoleType().equals(RoleType.ADMIN.getKey())) {
-        Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
-        post.setTitle(postDto.getTitle());
-        post.setContent(postDto.getContent());
-        post.setHidden(postDto.isHidden());
-        return postRepository.save(post);
+            Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
+            post.setTitle(postDto.getTitle());
+            post.setContent(postDto.getContent());
+            post.setHidden(postDto.isHidden());
+            return postRepository.save(post);
         }else {
-        throw new Exception("권한이 없음");
+            throw new Exception("권한이 없음");
         }
     }
 
