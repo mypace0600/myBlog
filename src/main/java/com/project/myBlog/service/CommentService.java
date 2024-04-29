@@ -50,9 +50,4 @@ public class CommentService {
         }
         commentRepository.delete(savedComment);
     }
-
-    @Transactional(readOnly = true)
-    public Page<Comment> getCommentPageByPostId(int postId, Pageable pageable) {
-        return commentRepository.getCommentPageByPostId(postId,pageable);
-    }
 }
