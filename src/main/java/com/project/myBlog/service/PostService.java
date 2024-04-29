@@ -44,8 +44,6 @@ public class PostService {
         post.setHidden(postDto.isHidden());
         post.setUser(user);
         post.setCount(0);
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdateAt(LocalDateTime.now());
         return postRepository.save(post);
     }
 
@@ -116,7 +114,6 @@ public class PostService {
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setHidden(postDto.isHidden());
-        post.setUpdateAt(LocalDateTime.now());
         return postRepository.save(post);
         }else {
         throw new Exception("권한이 없음");

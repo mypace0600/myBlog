@@ -47,8 +47,6 @@ public class UserService {
             githubUser.setPassword(encoder.encode(githubPassword));
             githubUser.setRoleType(RoleType.USER.getKey());
             githubUser.setOauth("github");
-            githubUser.setCreatedAt(LocalDateTime.now());
-            githubUser.setUpdateAt(LocalDateTime.now());
             userRepository.save(githubUser);
             return githubUser;
         } else {
