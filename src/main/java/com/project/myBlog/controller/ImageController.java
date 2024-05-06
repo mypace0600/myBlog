@@ -1,20 +1,20 @@
 package com.project.myBlog.controller;
 
-import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.project.myBlog.entity.Image;
 import com.project.myBlog.repository.ImageRepository;
+import com.project.myBlog.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 
 @Slf4j
@@ -22,40 +22,31 @@ import java.io.InputStream;
 @RequiredArgsConstructor
 public class ImageController {
 
-    public final ImageRepository imageRepository;
+    private final ImageService imageService;
 
-    @PostMapping(value="/img", produces = "application/json")
-    @ResponseBody
-    public JsonObject uploadImgFile(@RequestParam("file") MultipartFile multipartFile, @RequestParam("uuid") String uuid) {
+    private final ResourceLoader resourceLoader;
 
-        log.debug("@@@@@@@@@@@@@ file :{}",multipartFile.toString());
-        log.debug("@@@@@@@@@@@@@ uuid :{}",uuid);
-
-        JsonObject jsonObject = new JsonObject();
-        String fileRoot = "";
-        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-
-        String savedFileName = uuid + extension;	//저장될 파일 명
-
-        File targetFile = new File(fileRoot + savedFileName);
-
+    @PostMapping("/image")
+    public ResponseEntity<?> imageUpload(@RequestParam("file") MultipartFile file) {
         try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-
-            Image uploadImage = Image.createImg(fileRoot,savedFileName,uuid);
-            imageRepository.save(uploadImage);
-
-            jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
-            jsonObject.addProperty("responseCode", "success");
-
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-            jsonObject.addProperty("responseCode", "error");
+            Image uploadFile = imageService.store(file);
+            return ResponseEntity.ok().body("/image/" + uploadFile.getId());
+        } catch(Exception e) {
             e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/image/{id}")
+    public ResponseEntity<?> serveFile(@PathVariable Integer id){
+        try {
+            Image uploadFile = imageService.load(id);
+            Resource resource = resourceLoader.getResource("file:" + uploadFile.getFilePath());
+            return ResponseEntity.ok().body(resource);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
 
-        return jsonObject;
     }
 }

@@ -218,22 +218,6 @@ let post = {
 post.init();
 
 
-// 배열을 문자열로 변환하여 UUID를 생성하는 함수
-function arrayToUUID(array) {
-    return (
-        array.slice(0, 4).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
-        array.slice(4, 6).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
-        array.slice(6, 8).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
-        array.slice(8, 10).map(byte => byte.toString(16).padStart(2, '0')).join('') + '-' +
-        array.slice(10, 16).map(byte => byte.toString(16).padStart(2, '0')).join('')
-    );
-}
-
-let uuidStr = (function() {
-    let array = new Uint8Array(16);
-    crypto.getRandomValues(array);
-    return arrayToUUID(array);
-})();
 
 $('.summernote').summernote({
     tabsize: 2,
@@ -241,9 +225,11 @@ $('.summernote').summernote({
     focus: true,
     lang: "ko-KR",
     placeholder: '최대 2048자까지 쓸 수 있습니다',
-    callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-        onImageUpload : function(files) {
-            uploadSummernoteImageFile(files[0],this);
+    callbacks : {
+        onImageUpload : function(files, editor, welEditable) {
+            for (var i = 0; i < files.length; i++) {
+                sendFile(files[i], this);
+            }
         },
         onPaste: function (e) {
             var clipboardData = e.originalEvent.clipboardData;
@@ -257,19 +243,21 @@ $('.summernote').summernote({
     }
 });
 
-function uploadSummernoteImageFile(file, editor) {
-    data = new FormData();
-    data.append("file", file);
-    data.append("uuid",uuidStr);
+function sendFile(file, el) {
+    var form_data = new FormData();
+    form_data.append('file', file);
     $.ajax({
-        data : data,
+        data : form_data,
         type : "POST",
-        url : "/img",
+        url : '/image',
+        cache : false,
         contentType : false,
+        enctype : 'multipart/form-data',
         processData : false,
-        success : function(data) {
-            //항상 업로드된 파일의 url이 있어야 한다.
-            $(editor).summernote('insertImage', data.url);
+        success : function(url) {
+            $(el).summernote('insertImage', url, function($image) {
+                $image.css('width', "50%");
+            });
         }
     });
 }

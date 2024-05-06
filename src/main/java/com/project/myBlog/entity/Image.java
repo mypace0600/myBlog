@@ -20,17 +20,16 @@ public class Image extends BaseEntity  {
     @Column(name = "file_name")
     private String fileName;
 
+    @Column
+    private String saveFileName;
+
     @Column(name = "file_path")
     private String filePath;
 
-    @Column(name = "temp_id") // 임시 식별자
-    private String tempId;
+    @Column
+    private String contentType;
 
-    public static Image createImg(String fileRoot, String savedFileName,String uuid) {
-        Image image = new Image();
-        image.setFilePath(fileRoot);
-        image.setFileName(savedFileName);
-        image.setTempId(uuid);
-        return image;
-    }
+    private long size;
+
+
 }

@@ -27,8 +27,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
-	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
 
 	// spring security 설정
 	implementation 'org.springframework.boot:spring-boot-starter-security'

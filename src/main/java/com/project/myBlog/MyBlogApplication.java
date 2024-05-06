@@ -2,6 +2,7 @@ package com.project.myBlog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
@@ -12,4 +13,9 @@ public class MyBlogApplication {
 		SpringApplication.run(MyBlogApplication.class, args);
 	}
 
+
+	@Bean(name = "uploadPath")
+	public String uploadPath() {
+		return "/Users/hyunsu/Desktop/test";
+	}
 }
