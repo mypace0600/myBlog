@@ -33,7 +33,6 @@ let post = {
             title: $("#title").val(),
             content: $("#content").val(),
             tagString: $("#tagString").val(),
-            uuid: $("#uuid").val(),
             hidden: isHiddenChecked
         };
         $.ajax({
