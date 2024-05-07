@@ -22,11 +22,7 @@ public class ImageService {
     private final ImageRepository imageRepository;
 
     @Value("${imgUploadPath}")
-    String imgUploadPath;
-
-
-    String inProject = "/Users/hyunsu/myBlog/src/main/resources/assets/images";
-
+    String inProject;
 
     public Image store(MultipartFile file) throws Exception {
         try{
