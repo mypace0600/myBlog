@@ -44,8 +44,6 @@ public class PostService {
         post.setHidden(postDto.isHidden());
         post.setUser(user);
         post.setCount(0);
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdateAt(LocalDateTime.now());
         return postRepository.save(post);
     }
 
@@ -110,15 +108,15 @@ public class PostService {
     }
 
     public Post edit(PostDto postDto, User user) throws Exception {
-        if (user.getRoleType().equals(RoleType.ADMIN)) {
-        Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
-        post.setTitle(postDto.getTitle());
-        post.setContent(postDto.getContent());
-        post.setHidden(postDto.isHidden());
-        post.setUpdateAt(LocalDateTime.now());
-        return postRepository.save(post);
+        log.debug("@@@@@@@@@@@@@ user role :{}",user.getRoleType());
+        if (user.getRoleType().equals(RoleType.ADMIN.getKey())) {
+            Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
+            post.setTitle(postDto.getTitle());
+            post.setContent(postDto.getContent());
+            post.setHidden(postDto.isHidden());
+            return postRepository.save(post);
         }else {
-        throw new Exception("권한이 없음");
+            throw new Exception("권한이 없음");
         }
     }
 

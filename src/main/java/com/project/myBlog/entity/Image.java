@@ -17,8 +17,19 @@ public class Image extends BaseEntity  {
     @JoinColumn(name = "postId")
     private Post post;
 
-    @Column(name = "imgUrl", nullable = false)
-    private String imgUrl;
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column
+    private String saveFileName;
+
+    @Column(name = "file_path")
+    private String filePath;
+
+    @Column
+    private String contentType;
+
+    private long size;
 
 
 }

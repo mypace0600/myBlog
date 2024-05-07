@@ -27,8 +27,7 @@ public class User  extends BaseEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    private String roleType;
 
     private String oauth;
 
@@ -45,24 +44,24 @@ public class User  extends BaseEntity {
         return User.builder()
                 .email(user.getEmail())
                 .password(passwordEncoder.encode(user.getPassword()))
-                .roleType(RoleType.ADMIN)
+                .roleType(RoleType.ADMIN.getKey())
                 .build();
     }
 
     @Builder
     public User(String email, RoleType roleType){
         this.email = email;
-        this.roleType = roleType;
+        this.roleType = roleType.getKey();
     }
 
     public User update(String oauthProvideCompany){
         this.oauth = oauthProvideCompany;
-        this.roleType = RoleType.OAUTH;
+        this.roleType = RoleType.OAUTH.getKey();
         return this;
     }
 
     public String getRoleType(){
-        return this.roleType.name();
+        return this.roleType;
     }
 }
 

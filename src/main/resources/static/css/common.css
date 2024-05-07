@@ -92,9 +92,7 @@ display: none;
 }
 main{
     background-color: var(--background2);
-    padding-top: 150px;
-    grid-column: 3/4;
-    grid-row: 3/4;
+
     color: var(--font1);   
     overflow: auto;
 
@@ -233,12 +231,7 @@ nav button:hover {
 .devlop div{
         display: none;
     }
-main{  
-            padding-top:1px;
-            grid-column:1/5 ;
-            grid-row: 2/5;
-            color: var(--font1);   
-    }
+
 .foot{
         display: none;
         bottom: 0;

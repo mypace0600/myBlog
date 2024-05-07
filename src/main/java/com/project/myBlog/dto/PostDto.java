@@ -12,6 +12,7 @@ public class PostDto {
     private String content;
     private boolean hidden;
     private String tagString;
+    private String uuid;
 
     private List<Comment> commentList;
 }

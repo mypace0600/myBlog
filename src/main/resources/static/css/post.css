@@ -15,13 +15,11 @@
 /* 메인 */
 main{
   background-color: var(--background2);
-  padding-top: 150px;
   /* border: thick double var(--line) ; */
   grid-column: 3/4;
   grid-row: 3/4;
   color: var(--font1);   
   overflow: auto;
-  display: grid;
   grid-template-columns: 50% 49.3%;
   grid-template-rows: 20% 50% 50% 50% 50% 50%;
 }

@@ -13,9 +13,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
 
 
 @Configuration
@@ -47,11 +49,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/auth/**", "/js/**", "/css/**", "/img/**", "/thymeleaf/**").permitAll()
-                        .requestMatchers("/post/write").hasAnyRole(RoleType.ADMIN.toString())
-                        .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.toString())
-                        .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.toString())
+                        .requestMatchers("/post/write").hasAnyRole(RoleType.ADMIN.getKey())
+                        .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.getKey())
+                        .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.getKey())
                         .requestMatchers("/post/**").permitAll()
                         .requestMatchers("/oauth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -71,7 +74,11 @@ public class SecurityConfig {
                                 .baseUri("/login"))
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService))
-                        .successHandler(new CustomOAuth2AuthenticationSuccessHandler()));
+                        .successHandler(new CustomOAuth2AuthenticationSuccessHandler()))
+                .exceptionHandling(exception->exception
+                        .accessDeniedHandler(new CustomAccessDeniedHandler()));
         return http.build();
     }
+
+
 }

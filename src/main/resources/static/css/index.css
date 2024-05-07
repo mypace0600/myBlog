@@ -2,7 +2,7 @@
 
 
 /* 메인 */
-main{
+.index{
   background-color: var(--background2);
   padding-top: 150px;
   /* border: thick double var(--line) ; */

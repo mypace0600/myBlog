@@ -29,8 +29,6 @@ public class CommentService {
         comment.setPost(post);
         comment.setContent(commentDto.getCommentContent());
         comment.setUser(user);
-        comment.setCreatedAt(LocalDateTime.now());
-        comment.setUpdateAt(LocalDateTime.now());
         commentRepository.save(comment);
     }
 
@@ -40,7 +38,6 @@ public class CommentService {
         if(savedComment.getUser().getId() != user.getId()){
             throw new Exception("사용자가 일치하지 않습니다.");
         }
-        savedComment.setUpdateAt(LocalDateTime.now());
         savedComment.setContent(commentDto.getCommentContent());
         commentRepository.save(savedComment);
     }
@@ -52,10 +49,5 @@ public class CommentService {
             throw new Exception("사용자가 일치하지 않습니다.");
         }
         commentRepository.delete(savedComment);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<Comment> getCommentPage(int postId, Pageable pageable) {
-        return commentRepository.findAll(pageable);
     }
 }
