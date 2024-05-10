@@ -22,7 +22,7 @@
 - 홈서버 구축 실습
 
 ## 3. 스펙
-java 17, spring-boot 3.2.1, JPA, postgreSQL, redis, thymeleaf, javascript
+java 17, spring-boot 3.2.4, JPA, postgreSQL, redis, thymeleaf, javascript
 
 ## 4. 구조
 
