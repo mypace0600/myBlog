@@ -1,6 +1,6 @@
-# Spring Security와 JPA를 학습하기 위한 블로그 만들기 프로젝트
+# Spring Security와 JPA를 학습하기 위한 블로그 프로젝트
 
-배포 url : 
+배포 url : http://1.236.96.47:9000/
 
 
 ## 1. 팀원 구성
