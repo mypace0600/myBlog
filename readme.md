@@ -180,12 +180,12 @@ java 17, spring-boot 3.2.4, JPA, postgreSQL, redis, thymeleaf, javascript
 - 이미지 수정 삭제시 기존 등록된 이미지 삭제 (추후 작업 예정)
 
 ## 7. 신경쓴 부분
-- Security 설정 (https://github.com/mypace0600/myBlog/wiki/Spring-Security)
-- OAuth2 로그인 설정 (https://github.com/mypace0600/myBlog/wiki/Github-OAuth2-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84)
-- Authentication 통합 관리 (https://github.com/mypace0600/myBlog/wiki/OAuth2Login-%EB%98%90%EB%8A%94-FormLogin-%EC%9D%84-%ED%86%B5%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%9C--Authentication-%ED%86%B5%ED%95%A9-%EA%B4%80%EB%A6%AC)
+- [Security 설정](https://github.com/mypace0600/myBlog/wiki/Spring-Security)
+- [OAuth2 로그인 설정](https://github.com/mypace0600/myBlog/wiki/Github-OAuth2-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84)
+- [Authentication 통합 관리](https://github.com/mypace0600/myBlog/wiki/OAuth2Login-%EB%98%90%EB%8A%94-FormLogin-%EC%9D%84-%ED%86%B5%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%9C--Authentication-%ED%86%B5%ED%95%A9-%EA%B4%80%EB%A6%AC)
 
 ## 8. 트러블 슈팅
-- 무한참조 해결 (https://github.com/mypace0600/myBlog/wiki/%EB%AC%B4%ED%95%9C%EC%B0%B8%EC%A1%B0-%ED%95%B4%EA%B2%B0)
+- [무한참조 해결](https://github.com/mypace0600/myBlog/wiki/%EB%AC%B4%ED%95%9C%EC%B0%B8%EC%A1%B0-%ED%95%B4%EA%B2%B0)
 
 ## 9. 개선 목표
 - 추후 작업 예정인 내용을 차례로 작업해보기
