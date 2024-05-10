@@ -4,8 +4,9 @@
 
 
 ## 1. 팀원 구성
-심현수 사진 @mypace0600
-신한 사진 @ruukr8080
+|<img src="https://avatars.githubusercontent.com/u/97038857?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/131014787?v=4" width="150" height="150"/>|
+|:-:|:-:|
+|hyunsu<br/>[@mypace0600](https://github.com/mypace0600)|ruukr8080<br/>[@ruukr8080](https://github.com/ruukr8080)|
 
 ## 2. 프로젝트 목표
 - Spring Security의 동작 탐구
