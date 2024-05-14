@@ -31,5 +31,6 @@ public class Image extends BaseEntity  {
 
     private long size;
 
+    private String uuid;
 
 }

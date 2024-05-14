@@ -7,6 +7,7 @@ import com.project.myBlog.entity.Post;
 import com.project.myBlog.entity.PostTag;
 import com.project.myBlog.entity.Tag;
 import com.project.myBlog.entity.enums.RoleType;
+import com.project.myBlog.service.ImageService;
 import com.project.myBlog.service.PostService;
 import com.project.myBlog.service.PostTagService;
 import com.project.myBlog.service.TagService;
@@ -23,7 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+import java.util.UUID;
 
 
 @Slf4j
@@ -35,11 +36,11 @@ public class PostController {
     private final PostService postService;
     private final TagService tagService;
     private final PostTagService postTagService;
-
+    private final ImageService imageService;
 
 
     @GetMapping()
-    public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String postList(Model model, @PageableDefault(size = 9, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
         model.addAttribute("isActive", "post");
         return "post/post";
@@ -48,7 +49,10 @@ public class PostController {
     @GetMapping("/write")
     public String postWriteForm(Model model){
         model.addAttribute("isActive", "post");
-
+        // 작성중인 Post 와 등록한 Image 간 매칭을 위해 만든 UUID
+        UUID uuid = UUID.randomUUID();
+        String tempPostAndImageMappingUuid = uuid.toString();
+        model.addAttribute("uuid",tempPostAndImageMappingUuid);
         return "post/write_form";
     }
 
@@ -58,8 +62,13 @@ public class PostController {
         if(!principal.getUser().getRoleType().equals(RoleType.ADMIN.toString())){
             throw new Exception("글쓰기 권한이 없습니다.");
         }
-        Post savedPost = postService.save(postDto,principal.getUser());
-        tagService.save(savedPost, postDto.getTagString());
+        try {
+            Post savedPost = postService.save(postDto, principal.getUser());
+            tagService.save(savedPost, postDto.getTagString());
+            imageService.imageAndPostMappingUpdate(savedPost);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 
@@ -85,7 +94,12 @@ public class PostController {
     @ResponseBody
     public ResponseDto<Integer> postEdit(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal) throws Exception {
         Post savedPost = postService.edit(postDto,principal.getUser());
-        tagService.edit(savedPost, postDto.getTagString());
+        try {
+            tagService.edit(savedPost, postDto.getTagString());
+            imageService.imageAndPostMappingUpdate(savedPost);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 

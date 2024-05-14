@@ -38,12 +38,16 @@ public class PostService {
 
     @Transactional
     public Post save(PostDto postDto, User user) {
+        String content = postDto.getContent();
+        String textOnlyContent = textOnlyContentFactory(content);
         Post post = new Post();
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setHidden(postDto.isHidden());
         post.setUser(user);
+        post.setUuid(postDto.getUuid());
         post.setCount(0);
+        post.setTextOnlyContent(textOnlyContent);
         return postRepository.save(post);
     }
 
@@ -92,6 +96,7 @@ public class PostService {
         postDto.setTitle(savedPost.getTitle());
         postDto.setContent(savedPost.getContent());
         postDto.setHidden(savedPost.isHidden());
+        postDto.setUuid(savedPost.getUuid());
 
         StringBuilder tagStringBuilder = new StringBuilder();
         List<PostTag> postTagList = savedPost.getPostTagList();
@@ -108,12 +113,14 @@ public class PostService {
     }
 
     public Post edit(PostDto postDto, User user) throws Exception {
-        log.debug("@@@@@@@@@@@@@ user role :{}",user.getRoleType());
+        String content = postDto.getContent();
+        String textOnlyContent = textOnlyContentFactory(content);
         if (user.getRoleType().equals(RoleType.ADMIN.getKey())) {
             Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
             post.setTitle(postDto.getTitle());
             post.setContent(postDto.getContent());
             post.setHidden(postDto.isHidden());
+            post.setTextOnlyContent(textOnlyContent);
             return postRepository.save(post);
         }else {
             throw new Exception("권한이 없음");
@@ -124,5 +131,15 @@ public class PostService {
     public void deleteById(Integer id) {
 //        postTagRepository.deleteAllByPostId(id);
         postRepository.deleteById(id);
+    }
+
+    private String textOnlyContentFactory(String content){
+        log.debug("@@@@@@@@@ content :{}",content);
+        String textOnlyContent = content.replaceAll("<[^>]+>", "").replaceAll("&nbsp;"," ");
+        if(textOnlyContent.length() > 25){
+            textOnlyContent = textOnlyContent.substring(0,25);
+        }
+        log.debug("@@@@@@@@@ textOnlyContent :{}",textOnlyContent);
+        return textOnlyContent;
     }
 }

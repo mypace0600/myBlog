@@ -22,6 +22,9 @@ public class Post extends BaseEntity  {
     @Column(nullable = false, columnDefinition="TEXT")
     private String content;
 
+    @Column(columnDefinition="TEXT")
+    private String textOnlyContent;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
@@ -30,6 +33,8 @@ public class Post extends BaseEntity  {
     private boolean hidden;
 
     private int count;
+
+    private String uuid;
 
     @JsonIgnoreProperties({"post"})
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
