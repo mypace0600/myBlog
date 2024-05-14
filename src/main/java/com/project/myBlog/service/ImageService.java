@@ -1,6 +1,7 @@
 package com.project.myBlog.service;
 
 import com.project.myBlog.entity.Image;
+import com.project.myBlog.entity.Post;
 import com.project.myBlog.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -24,14 +26,14 @@ public class ImageService {
     @Value("${imgUploadPath}")
     String inProject;
 
-    public Image store(MultipartFile file) throws Exception {
+    public Image store(MultipartFile file,String uuid) throws Exception {
         try{
             if(file.isEmpty()) {
                 throw new Exception("Failed to store empty file " + file.getOriginalFilename());
             }
-
             String saveFileName = fileSave(inProject, file);
             Image saveImage = new Image();
+            saveImage.setUuid(uuid);
             saveImage.setFileName(file.getOriginalFilename());
             saveImage.setSaveFileName(saveFileName);
             saveImage.setContentType(file.getContentType());
@@ -51,9 +53,10 @@ public class ImageService {
             uploadDir.mkdirs();
         }
 
+        // 파일 이름 생성용 UUID
         UUID uuid = UUID.randomUUID();
         String saveFileName = uuid.toString() + file.getOriginalFilename();
-        log.debug("@@@@@@@@@@@ saveFileName :{}",saveFileName);
+
         File saveFile = new File(rootLocation,saveFileName);
         FileCopyUtils.copy(file.getBytes(),saveFile);
 
@@ -64,4 +67,11 @@ public class ImageService {
         return imageRepository.findById(fileId).get();
     }
 
+    public void imageAndPostMappingUpdate(Post savedPost) {
+        List<Image> imageList = imageRepository.findByUuid(savedPost.getUuid());
+        for(Image i : imageList){
+            i.setPost(savedPost);
+            imageRepository.save(i);
+        }
+    }
 }

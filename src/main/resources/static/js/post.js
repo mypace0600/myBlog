@@ -1,3 +1,4 @@
+
 let post = {
     init : function () {
         $("#btn-save").on("click", () => {
@@ -30,6 +31,7 @@ let post = {
         let checkBox = document.getElementById("hiddenStat");
         let isHiddenChecked = checkBox.checked;
         let data = {
+            uuid: $("#uuid").val(),
             title: $("#title").val(),
             content: $("#content").val(),
             tagString: $("#tagString").val(),
@@ -225,14 +227,14 @@ $('.summernote').summernote({
     lang: "ko-KR",
     callbacks : {
         onImageUpload : function(files, editor, welEditable) {
-            for (var i = 0; i < files.length; i++) {
+            for (let i = 0; i < files.length; i++) {
                 sendFile(files[i], this);
             }
         },
         onPaste: function (e) {
-            var clipboardData = e.originalEvent.clipboardData;
+            let clipboardData = e.originalEvent.clipboardData;
             if (clipboardData && clipboardData.items && clipboardData.items.length) {
-                var item = clipboardData.items[0];
+                let item = clipboardData.items[0];
                 if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
                     e.preventDefault();
                 }
@@ -242,8 +244,11 @@ $('.summernote').summernote({
 });
 
 function sendFile(file, el) {
-    var form_data = new FormData();
+    let form_data = new FormData();
     form_data.append('file', file);
+    let uuid = $("#uuid").val()
+    form_data.append('uuid',uuid);
+
     $.ajax({
         data : form_data,
         type : "POST",

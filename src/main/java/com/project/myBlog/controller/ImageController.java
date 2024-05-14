@@ -27,9 +27,9 @@ public class ImageController {
     private final ResourceLoader resourceLoader;
 
     @PostMapping("/image")
-    public ResponseEntity<?> imageUpload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> imageUpload(@RequestParam("file") MultipartFile file, @RequestParam("uuid") String uuid) {
         try {
-            Image uploadFile = imageService.store(file);
+            Image uploadFile = imageService.store(file,uuid);
             return ResponseEntity.ok().body("/image/" + uploadFile.getId());
         } catch(Exception e) {
             e.printStackTrace();
@@ -47,6 +47,5 @@ public class ImageController {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
-
     }
 }
