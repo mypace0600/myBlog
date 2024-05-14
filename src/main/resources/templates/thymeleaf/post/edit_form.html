@@ -12,6 +12,7 @@
 
     <div class="container">
         <form>
+            <input type="hidden" id="uuid" th:value="${post.uuid}">
             <input type="hidden" id="id" name="id" th:value="${post.id}"/>
             <div class="form-group">
                 <label for="title">제목</label>
