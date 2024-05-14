@@ -51,6 +51,9 @@ dependencies {
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+	// redis 설정
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.2.2'
+
 }
 
 tasks.named('test') {

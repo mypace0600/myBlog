@@ -48,7 +48,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/auth/**", "/js/**", "/css/**", "/img/**", "/thymeleaf/**").permitAll()
+                        .requestMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**", "/thymeleaf/**").permitAll()
                         .requestMatchers("/post/write").hasAnyRole(RoleType.ADMIN.getKey())
                         .requestMatchers("/post/edit/**").hasAnyRole(RoleType.ADMIN.getKey())
                         .requestMatchers("/post/delete").hasAnyRole(RoleType.ADMIN.getKey())
