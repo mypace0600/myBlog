@@ -223,7 +223,6 @@ $('.summernote').summernote({
     height: 300,
     focus: true,
     lang: "ko-KR",
-    placeholder: '최대 2048자까지 쓸 수 있습니다',
     callbacks : {
         onImageUpload : function(files, editor, welEditable) {
             for (var i = 0; i < files.length; i++) {

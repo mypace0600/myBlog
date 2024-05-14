@@ -6,7 +6,7 @@
     <button onclick="location.href='/'" class="nav-btn" id="nav_"><span>Home</span></button>
     <button onclick="location.href='/post'" class="nav-btn" id="nav_post"><span>Post</span></button>
     <button onclick="location.href='/port'" class="nav-btn" id="nav_port"><span>Portfolio</span></button>
-
+    <button onclick="location.href='/post/write'" sec:authorize="hasRole('ADMIN')" class="nav-btn" id="nav_write"><span>Write</span></button>
 
     <!-- 로그인 되어 있지 않은 경우 -->
     <button sec:authorize="isAnonymous()" class="boo" onclick="location.href='/auth/loginForm'"><span
