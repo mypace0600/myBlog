@@ -10,10 +10,10 @@
 </th:block>
 
     <main layout:fragment="content">
-        <div class="container">
-            <div class="row">
+        <div class="container postContainer">
+            <div class="row postRow">
                 <th:block th:each="post, status: ${postList.getContent()}">
-                    <div class="col-md-4">
+                    <div class="col-md-4 postCardBox">
                         <a th:href="'/post/'+${post.id}" class="card-link">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">

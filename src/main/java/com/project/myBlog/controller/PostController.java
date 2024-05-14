@@ -40,7 +40,7 @@ public class PostController {
 
 
     @GetMapping()
-    public String postList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String postList(Model model, @PageableDefault(size = 9, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
         model.addAttribute("isActive", "post");
         return "post/post";

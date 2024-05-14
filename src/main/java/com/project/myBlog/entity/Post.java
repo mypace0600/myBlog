@@ -22,6 +22,7 @@ public class Post extends BaseEntity  {
     @Column(nullable = false, columnDefinition="TEXT")
     private String content;
 
+    @Column(columnDefinition="TEXT")
     private String textOnlyContent;
 
     @ManyToOne(fetch = FetchType.EAGER)

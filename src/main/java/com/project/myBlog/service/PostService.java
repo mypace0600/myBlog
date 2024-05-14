@@ -39,10 +39,7 @@ public class PostService {
     @Transactional
     public Post save(PostDto postDto, User user) {
         String content = postDto.getContent();
-        String textOnlyContent = content.replaceAll("<[^>]+>", "");
-        if(textOnlyContent.length()>25){
-            textOnlyContent.substring(0,25);
-        }
+        String textOnlyContent = textOnlyContentFactory(content);
         Post post = new Post();
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
@@ -117,10 +114,7 @@ public class PostService {
 
     public Post edit(PostDto postDto, User user) throws Exception {
         String content = postDto.getContent();
-        String textOnlyContent = content.replaceAll("<[^>]+>", "");
-        if(textOnlyContent.length()>25){
-            textOnlyContent.substring(0,25);
-        }
+        String textOnlyContent = textOnlyContentFactory(content);
         if (user.getRoleType().equals(RoleType.ADMIN.getKey())) {
             Post post = postRepository.findById(postDto.getId()).orElseThrow(EntityNotFoundException::new);
             post.setTitle(postDto.getTitle());
@@ -137,5 +131,15 @@ public class PostService {
     public void deleteById(Integer id) {
 //        postTagRepository.deleteAllByPostId(id);
         postRepository.deleteById(id);
+    }
+
+    private String textOnlyContentFactory(String content){
+        log.debug("@@@@@@@@@ content :{}",content);
+        String textOnlyContent = content.replaceAll("<[^>]+>", "").replaceAll("&nbsp;"," ");
+        if(textOnlyContent.length() > 25){
+            textOnlyContent = textOnlyContent.substring(0,25);
+        }
+        log.debug("@@@@@@@@@ textOnlyContent :{}",textOnlyContent);
+        return textOnlyContent;
     }
 }

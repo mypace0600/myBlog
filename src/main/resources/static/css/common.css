@@ -282,3 +282,9 @@ nav button:hover {
     height: 200px;
     object-fit: cover; /* 이미지를 잘라서 보여줌 */
 }
+.postContainer{
+    padding: 10px;
+}
+.postCardBox{
+    margin-bottom: 15px;
+}
