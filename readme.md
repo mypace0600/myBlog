@@ -26,7 +26,7 @@
 java 17, spring-boot 3.2.4, JPA, postgreSQL, redis, thymeleaf, javascript
 
 ## 4. 데이터베이스 설계
-![엔티티 설계도](https://github.com/mypace0600/myBlog/assets/97038857/866f0615-26b1-4f7a-bd16-04b3482ebfa6)
+<img width="606" alt="스크린샷 2024-05-15 오후 2 25 21" src="https://github.com/mypace0600/myBlog/assets/97038857/1b8274e9-b330-4694-ac84-0eb89bfa95e7">
 
 
 ## 5. 프로젝트 구조
