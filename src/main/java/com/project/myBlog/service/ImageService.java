@@ -74,4 +74,18 @@ public class ImageService {
             imageRepository.save(i);
         }
     }
+
+    public Image tempFileSave() {
+        Image temp = new Image();
+        temp.setFileName("no_img");
+        temp.setSaveFileName("no_img");
+        temp.setContentType("image/png");
+        temp.setFilePath("/Users/hyunsu/myBlog/src/main/resources/static/images/2f253085-4033-4a93-a189-84347ff86781no_img.png");
+        return imageRepository.save(temp);
+    }
+
+    public int findNoImgId() {
+        Image img = imageRepository.findBySaveFileName("no_img");
+        return img.getId();
+    }
 }

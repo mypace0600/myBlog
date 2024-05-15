@@ -28,6 +28,8 @@
             </div>
             <label for="hiddenStat">비밀글 설정</label>
             <input type="checkbox" id="hiddenStat" name="hiddenStat" th:value="${post.hidden}"/>
+            <label for="portFolioStat">포트폴리오 설정</label>
+            <input type="checkbox" id="portFolioStat" name="portFolioStat" value="false"/>
         </form>
         <button id="btn-edit" class="btn btn-primary">수정 완료</button>
         <button class="btn btn-danger"><a th:href="'/post/'+${post.id}">취소</a></button>

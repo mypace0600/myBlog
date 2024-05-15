@@ -36,6 +36,8 @@ public class Post extends BaseEntity  {
 
     private String uuid;
 
+    private Boolean portFolio;
+
     @JsonIgnoreProperties({"post"})
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id desc ")
