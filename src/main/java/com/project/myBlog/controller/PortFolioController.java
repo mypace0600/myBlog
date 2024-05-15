@@ -22,16 +22,22 @@ public class PortFolioController {
     public String portFolio(Model model){
         List<Post> portFolio = postRepository.findByPortFolio();
 
-        if(portFolio.size()>0){
-            log.debug("@@@@@@@@@ portFolio.size :{}",portFolio.size());
-            Post post = portFolio.get(0);
-            PostDto postDto = new PostDto();
-            postDto.setTitle(post.getTitle());
-            postDto.setContent(post.getContent());
-            model.addAttribute("post",postDto);
-            model.addAttribute("isActive", "post");
+        try {
+            if (portFolio.size() > 0) {
+                log.debug("@@@@@@@@@ portFolio.size :{}", portFolio.size());
+                Post post = portFolio.get(0);
+                PostDto postDto = new PostDto();
+                postDto.setTitle(post.getTitle());
+                postDto.setContent(post.getContent());
+                model.addAttribute("post", postDto);
+                model.addAttribute("isActive", "post");
+            } else {
+                return "common/error/errorPortFolio400";
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
         }
-
         return "port/port";
     }
 }
