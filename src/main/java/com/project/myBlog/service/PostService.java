@@ -131,7 +131,6 @@ public class PostService {
 
     @Transactional
     public void deleteById(Integer id) {
-//        postTagRepository.deleteAllByPostId(id);
         postRepository.deleteById(id);
     }
 

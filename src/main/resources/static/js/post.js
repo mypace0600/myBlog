@@ -59,17 +59,18 @@ let post = {
     },
 
     postEdit : function() {
-        let checkBox = $("#hiddenStat").val();
-        let hidden = false;
-        if(checkBox==="on") {
-            hidden = true;
-        }
+        let hiddenCheckBox = document.getElementById("hiddenStat");
+        let isHiddenChecked = hiddenCheckBox.checked;
+        let portFolioCheckBox = document.getElementById("portFolioStat");
+        let isPortFolioChecked = portFolioCheckBox.checked;
+
         let data = {
             id:  $("#id").val(),
             title: $("#title").val(),
             content: $("#content").val(),
             tagString: $("#tagString").val(),
-            hidden:hidden
+            hidden:isHiddenChecked,
+            portFolio: isPortFolioChecked
         };
 
         $.ajax({
