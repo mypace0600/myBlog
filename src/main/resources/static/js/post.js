@@ -28,14 +28,17 @@ let post = {
     },
 
     postSave : function() {
-        let checkBox = document.getElementById("hiddenStat");
-        let isHiddenChecked = checkBox.checked;
+        let hiddenCheckBox = document.getElementById("hiddenStat");
+        let isHiddenChecked = hiddenCheckBox.checked;
+        let portFolioCheckBox = document.getElementById("portFolioStat");
+        let isPortFolioChecked = portFolioCheckBox.checked;
         let data = {
             uuid: $("#uuid").val(),
             title: $("#title").val(),
             content: $("#content").val(),
             tagString: $("#tagString").val(),
-            hidden: isHiddenChecked
+            hidden: isHiddenChecked,
+            portFolio: isPortFolioChecked
         };
         $.ajax({
             type:"POST",
@@ -49,7 +52,7 @@ let post = {
             } else {
                 alert("글쓰기 완료");
             }
-            location.href="/";
+            location.href="/post";
         }).fail(function (error){
             alert(JSON.stringify(error));
         });
@@ -78,7 +81,7 @@ let post = {
         }).done(function (resp){
             if(resp.status===200){
                 alert("글 수정 완료");
-                location.href="/";
+                location.href="/post";
             } else {
                 alert("글 수정 실패!!!!!!");
             }
@@ -110,7 +113,7 @@ let post = {
         }).done(function (resp){
             if(resp.status===200){
                 alert("글 삭제 완료");
-                location.href="/";
+                location.href="/post";
             } else {
                 alert("글 삭제 실패!!!!!!");
             }
