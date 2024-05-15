@@ -35,7 +35,7 @@
                                         <img th:src="${'/image/'+post.imageList[0].id}" class="card-img-top thumbnail" alt="Thumbnail">
                                     </div>
                                     <div th:if="${#lists.isEmpty(post.imageList)}" class="thumbnailBox">
-                                        <img th:src="${'/image/4'}" class="card-img-top thumbnail" alt="Thumbnail">
+                                        <img th:src="${'/image/'+noImgId}" class="card-img-top thumbnail" alt="Thumbnail">
                                     </div>
                                     <p class="card-text">
                                         <span th:text="${post.textOnlyContent}+'...'"></span>

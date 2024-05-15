@@ -9,4 +9,5 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
 
     List<Image> findByUuid(String uuid);
 
+    Image findBySaveFileName(String no_img);
 }
