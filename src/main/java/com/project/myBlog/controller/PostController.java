@@ -43,6 +43,8 @@ public class PostController {
     public String postList(Model model, @PageableDefault(size = 9, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         model.addAttribute("postList",postService.getList(pageable));
         model.addAttribute("isActive", "post");
+        int noImgId = imageService.findNoImgId();
+        model.addAttribute("noImgId",noImgId);
         return "post/post";
     }
 
@@ -59,6 +61,7 @@ public class PostController {
     @PostMapping("/write")
     @ResponseBody
     public ResponseDto<Integer> postWrite(@RequestBody PostDto postDto, @AuthenticationPrincipal PrincipalDetail principal) throws Exception {
+        log.debug("@@@@@@@@@@@@@@@@@@ portFolio :{}",postDto.isPortFolio());
         if(!principal.getUser().getRoleType().equals(RoleType.ADMIN.toString())){
             throw new Exception("글쓰기 권한이 없습니다.");
         }

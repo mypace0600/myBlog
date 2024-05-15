@@ -11,6 +11,7 @@ public class PostDto {
     private String title;
     private String content;
     private boolean hidden;
+    private boolean portFolio;
     private String tagString;
     private String uuid;
 

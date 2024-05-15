@@ -48,6 +48,7 @@ public class PostService {
         post.setUuid(postDto.getUuid());
         post.setCount(0);
         post.setTextOnlyContent(textOnlyContent);
+        post.setPortFolio(postDto.isPortFolio());
         return postRepository.save(post);
     }
 
@@ -121,6 +122,7 @@ public class PostService {
             post.setContent(postDto.getContent());
             post.setHidden(postDto.isHidden());
             post.setTextOnlyContent(textOnlyContent);
+            post.setPortFolio(postDto.isPortFolio());
             return postRepository.save(post);
         }else {
             throw new Exception("권한이 없음");
